@@ -1,0 +1,1 @@
+python json2text.py -source ../data/wiki/simplewiki-20171120-cirrussearch-content.json.gz -target ../data/wiki/wiki.txt -lower 1
