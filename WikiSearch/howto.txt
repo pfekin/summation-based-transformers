@@ -1,1 +1,3 @@
-python json2text.py -source ../data/wiki/simplewiki-20171120-cirrussearch-content.json.gz -target ../data/wiki/wiki.txt -lower 1
+download https://dumps.wikimedia.org/other/cirrussearch/20250106/simplewiki-20250106-cirrussearch-content.json.gz
+create /data folder and move simplewiki-20250106-cirrussearch-content.json.gz 
+python json2text.py -source ../data/simplewiki-20250106-cirrussearch-content.json.gz -target ../data/wiki.txt -lower 1
