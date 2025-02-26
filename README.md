@@ -1,6 +1,6 @@
 ## Random vector search 
 Before creating the document vectors, it is necessary to download the 
-[Simple English Wikipedia Cirrus dump]( https://dumps.wikimedia.org/other/cirrussearch/20250106/simplewiki-20250106-cirrussearch-content.json.gz).
+[Simple English Wikipedia Cirrus JSON dump]( https://dumps.wikimedia.org/other/cirrussearch/20250106/simplewiki-20250106-cirrussearch-content.json.gz).
 Then, move _simplewiki-20250106-cirrussearch-content.json.gz_ to _/data_  
 and convert the Wikiepedia dump in JSON format to text by running the following script.
 ```
