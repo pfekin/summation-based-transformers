@@ -8,11 +8,11 @@ python json2text.py -source ../data/simplewiki-20250106-cirrussearch-content.jso
 ```
 Next, create the actual doculent vectors.
 ```
-make_wiki_model.py
+python make_wiki_model.py
 ```
 Finally, run the model
 ```
-
+python search_demo.py
 ```
 ## Image classification with fixed output random vectors   
 The 5 datasets benchmarked are [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html), [CIFAR100](https://www.cs.toronto.edu/~kriz/cifar.html), 
