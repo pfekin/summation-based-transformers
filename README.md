@@ -1,6 +1,11 @@
-
-
-
+## Random vector search 
+Before creating the document vectors, it is necessary to download the 
+[Simple English Wikipedia Cirrus dump]( https://dumps.wikimedia.org/other/cirrussearch/20250106/simplewiki-20250106-cirrussearch-content.json.gz).
+Next, move _simplewiki-20250106-cirrussearch-content.json.gz_ to _/data_.  
+Finally, convert the Wikiepedia dump in JSON format to text by running the following script.
+```
+python json2text.py -source ../data/simplewiki-20250106-cirrussearch-content.json.gz -target ../data/wiki.txt -lower 1
+```
 
 ## Image classification with fixed output random vectors   
 The 5 datasets benchmarked are [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html), [CIFAR100](https://www.cs.toronto.edu/~kriz/cifar.html), 
