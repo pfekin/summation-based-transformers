@@ -25,7 +25,7 @@ is_sdr = True # True is Random vector, False defaults to softmax classifier for 
 ## Random vector search 
 Before creating the document vectors, it is necessary to download the 
 [Simple English Wikipedia Cirrus JSON dump](https://dumps.wikimedia.org/other/cirrussearch/current/simplewiki-20250303-cirrussearch-content.json.gz).
-Then, move _simplewiki-20250106-cirrussearch-content.json.gz_ to _/data_ and convert the Wikiepedia dump from JSON format to Unicode text by running the following script.
+Then, move _simplewiki-20250303-cirrussearch-content.json.gz_ to _/data_ and convert the Wikiepedia dump from JSON format to Unicode text by running the following script.
 ```
 python json2text.py -source ../data/simplewiki-20250303-cirrussearch-content.json.gz -target ../data/wiki.txt -lower 1
 ```
