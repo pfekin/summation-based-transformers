@@ -4,7 +4,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam, AdamW, SGD
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from random_vector_util import RandomIndex, RandomVector, ValidatationCallback, custom_loss_with_random_replacement
+from random_vector_util import RandomIndex, RandomVector, ValidatationCallback
 from tensorflow.keras.callbacks import LearningRateScheduler, ReduceLROnPlateau
 from tensorflow import random
 import numpy as np
