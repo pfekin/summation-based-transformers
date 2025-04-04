@@ -2,7 +2,7 @@
 The 5 datasets benchmarked are [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html), [CIFAR100](https://www.cs.toronto.edu/~kriz/cifar.html), 
 [LFW](https://www.kaggle.com/datasets/atulanandjha/lfwpeople), [EuroSat](https://github.com/phelber/eurosat), and [Oxford Flowers 102](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/).  
 
-You can install the dependencies via pip or conda. To execute the benchmark:
+You can install the dependencies via pip or conda. To execute the benchmark.
 ```
 python net.py 
 ```
@@ -25,7 +25,7 @@ is_sdr = True # True is Random vector, False defaults to softmax classifier for 
 ## Random vector search 
 Before creating the document vectors, download 
 [Simple English Wikipedia Cirrus JSON dump](https://dumps.wikimedia.org/other/cirrussearch/current/simplewiki-20250303-cirrussearch-content.json.gz).
-Then, move _simplewiki-20250303-cirrussearch-content.json.gz_ to _/data_ and convert the Wikiepedia dump from JSON format to Unicode text:
+Then, move _simplewiki-20250303-cirrussearch-content.json.gz_ to _/data_ and convert the Wikiepedia dump from JSON format to Unicode text.
 ```
 python json2text.py -source ../data/simplewiki-20250303-cirrussearch-content.json.gz -target ../data/wiki.txt -lower 1
 ```
@@ -33,7 +33,7 @@ Next, create the actual document vectors.
 ```
 python make_wiki_model.py
 ```
-Finally, run the model
+Finally, run the model.
 ```
 python search_demo.py
 
