@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.manifold import TSNE
 
 # Configuration
-SEQ_LENGTH = 128
+SEQ_LENGTH = 256
 BATCH_SIZE = 64
 VOCAB_SIZE = 10000
 EMBED_DIM = 256
@@ -76,37 +76,6 @@ def prepare_ag_news(split, tokenizer):
         
     return ds.map(process, num_parallel_calls=tf.data.AUTOTUNE)
 
-def prepare_dbpedia(split, tokenizer):
-    raw_dataset = load_dataset("dbpedia_14", split=split)
-    texts = [x['content'] for x in raw_dataset]
-    ds = tf.data.Dataset.from_tensor_slices(texts)
-    tokenizer.adapt(ds)
-
-    def process(text):
-        tokens = tokenizer(text)
-        return tokens[:-1], tokens[1:]
-    
-    def filter_empty(x, y):
-        return tf.shape(x)[0] > 0
-        
-    return ds.map(process, num_parallel_calls=tf.data.AUTOTUNE)
-
-def prepare_bookcorpus(split, tokenizer, max_samples=None, offset=0, train=True):
-    dataset = load_dataset("bookcorpusopen", split=split)
-    if max_samples is not None:
-        dataset = dataset.select(range(offset, offset + max_samples))
-    
-    texts = [x["text"] for x in dataset]
-    ds = tf.data.Dataset.from_tensor_slices(texts)
-    if train:
-        tokenizer.adapt(ds) 
-    
-    def process(text):
-        tokens = tokenizer(text)
-        return tokens[:-1], tokens[1:]
-    
-    return ds.map(process, num_parallel_calls=tf.data.AUTOTUNE)
-
 from datasets import load_dataset
 import tensorflow as tf
 import numpy as np
@@ -157,21 +126,14 @@ tokenizer = tf.keras.layers.TextVectorization(
 #train_ds = prepare_imdb('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 #val_ds = prepare_imdb('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)  # Using test as validation
 
-#train_ds = prepare_wikitext('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-#val_ds = prepare_wikitext('validation', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+train_ds = prepare_wikitext('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+val_ds = prepare_wikitext('validation', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
 #train_ds = prepare_ag_news('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 #val_ds = prepare_ag_news('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
-#train_ds = prepare_dbpedia('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-#val_ds = prepare_dbpedia('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-
-# Train set: first 50k
-#train_ds = prepare_bookcorpus('train', tokenizer, max_samples=50000, offset=0, train=True).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-#val_ds = prepare_bookcorpus('train', tokenizer, max_samples=5000, offset=50000, train=False).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-
-train_ds = prepare_cmu_books('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-val_ds   = prepare_cmu_books('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+#train_ds = prepare_cmu_books('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+#val_ds   = prepare_cmu_books('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
 # Sanity check, replace val_ds to test for forward leakage as in MultiHeadAttention's parameter "use_causal_mask=False"
 #val_ds = prepare_random_validation_ds(VOCAB_SIZE, SEQ_LENGTH, 10000).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
@@ -214,32 +176,30 @@ class DotProductAttention(layers.Layer):
     def call(self, x, mask=None, use_causal_mask=False):
         return self.mha(x, x, attention_mask=mask, use_causal_mask=False)
 
+
 # Aggregation
 class Aggregation(layers.Layer):
-    def __init__(self, d_model, projection=True, noise=None):
+    def __init__(self, d_model, projection=True, noise_stddev=0.0):
         super().__init__()
         self.d_model = d_model
-        if projection:
-            self.proj = layers.Dense(d_model, activation='linear', use_bias=False)
-        self.noise = layers.GaussianNoise(noise, seed=None) if noise is not None else None
-    def call(self, x, mask=None):
-        if projection:
-            x_high = self.proj(x)  # (batch, seq_len, d_model)
-        else:
-            x_high = x
-
+        self.projection = projection
+        self.proj = layers.Dense(d_model, activation='linear', use_bias=False) if projection is not None else None
+        self.noise = layers.GaussianNoise(noise_stddev, seed=None)
+        
+    def call(self, x, mask=None, training=None):
+        x = self.proj(x) if self.projection else x
+             
         if mask is not None:
             # Convert mask to float32 and use it to zero out future positions
-            mask = tf.cast(mask, tf.float32)  # (batch, seq_len, seq_len)
-
-            # Aggregate using matrix multiplication (avoids 4D tensor)
-            x_sum = tf.einsum('bij,bjf->bif', mask, x_high)  # (batch, seq_len, d_model*expansion)
-        else:
-            x_sum = tf.reduce_sum(x_high, axis=1, keepdims=True)
+            mask = tf.cast(mask, tf.float32)
             
-        if self.trainable and self.noise is not None:
-            x_sum = self.noise(x_sum)
-        return x_sum + x  # (batch, seq_len, d_model)
+            # Aggregate using matrix multiplication (avoids 4D tensor)
+            x = tf.einsum('bij,bjf->bif', mask, x)  # (batch, seq_len, d_model*expansion)
+        else:
+            x = tf.reduce_sum(x, axis=1, keepdims=True)
+            
+        x = self.noise(x, training=training)
+        return x  # (batch, seq_len, d_model)
 
 # Autoregressive Model
 class LanguageModel(tf.keras.Model):
@@ -250,7 +210,7 @@ class LanguageModel(tf.keras.Model):
         self.pos_enc = AdaptivePositionEncoding(SEQ_LENGTH, EMBED_DIM)
 
         if attention_type == "aggregate":
-            self.attention = Aggregation(EMBED_DIM, noise=0.1)
+            self.attention = Aggregation(EMBED_DIM, noise_stddev=0.1)
         else:
             self.attention = DotProductAttention(EMBED_DIM, num_heads=4)
              
@@ -372,7 +332,7 @@ def plot_similarity_histograms(results):
     plt.hist(results['dot_attention']['matrix'].flatten(),
              bins=50, alpha=0.5, label='Dot Attention')
     plt.hist(results['aggregate_attention']['matrix'].flatten(),
-             bins=50, alpha=0.5, label='Aggregate Attention')
+             bins=50, alpha=0.5, label='Aggregation')
     plt.title('Within-Model Similarities')
     plt.xlabel('Cosine Similarity')
     plt.legend()
@@ -403,7 +363,7 @@ plt.figure(figsize=(15, 10))
 # Val Loss comparison
 plt.subplot(3, 1, 1)
 plt.plot(results['dot']['history']['training']['val_loss'], label='Dot Product Attention')
-plt.plot(results['aggregate']['history']['training']['val_loss'], label='Aggregate Attention')
+plt.plot(results['aggregate']['history']['training']['val_loss'], label='Aggregation')
 
 plt.title('Validation Loss Comparison')
 plt.ylabel('Loss')
@@ -414,7 +374,7 @@ plt.legend()
 # Val Accuracy comparison
 plt.subplot(3, 1, 2)
 plt.plot(results['dot']['history']['training']['val_accuracy'], label='Dot Product Attention')
-plt.plot(results['aggregate']['history']['training']['val_accuracy'], label='Aggregate Attention')
+plt.plot(results['aggregate']['history']['training']['val_accuracy'], label='Aggregation')
 
 plt.title('Validation Accuracy Comparison')
 plt.ylabel('Accuracy')
@@ -425,7 +385,7 @@ plt.legend()
 # Val Perplexity comparison
 plt.subplot(3, 1, 3)
 plt.plot(results['dot']['history']['perplexity']['val_ppl'], label='Dot Product Attention')
-plt.plot(results['aggregate']['history']['perplexity']['val_ppl'], label='Aggregate Attention')
+plt.plot(results['aggregate']['history']['perplexity']['val_ppl'], label='Aggregation')
 plt.title('Validation Perplexity Comparison')
 plt.ylabel('Perplexity')
 plt.xlabel('Epoch')
