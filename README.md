@@ -15,9 +15,15 @@
 ---
 
 ## 📊 Performance Highlights  
-![Classification Accuracy](media/accuracy_chart.png)  
+
+### Classification Accuracy vs. Attention Models  
+![Classification Accuracy](media/classification.png)  
 *Aggregation vs. attention on IMDB/WikiText benchmarks*
 
+### Auto-regression Perplexity vs. Attention Models  
+![Classification Accuracy](media/autoregression.png)  
+
+### Cosine Similarity Distribution (Aggregation vs. Attention)  
 ![Cosine Similarity](media/histogram.png)  
 *Token embedding orthogonality emerges naturally*
 
