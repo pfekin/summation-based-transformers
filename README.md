@@ -16,13 +16,6 @@
 
 ## 📊 Performance Highlights  
 
-### Classification Accuracy vs. Attention Models  
-![Classification Accuracy](media/classification.PNG)  
-*Aggregation vs. attention on IMDB/WikiText benchmarks*
-
-### Auto-regression Perplexity vs. Attention Models  
-![Classification Accuracy](media/autoregression.PNG)  
-
 ### Cosine Similarity Distribution (Aggregation vs. Attention)  
 ![Cosine Similarity](media/histogram.png)  
 *Token embedding orthogonality emerges naturally*
@@ -41,11 +34,7 @@ Combines token embeddings (**eₜ**) and positional encodings (**pₜ**) via:
 ### Training Dynamics  
 The optimizer achieves dual objectives:  
 1. **Minimizes semantic clash** through emergent orthogonality  
-2. **Maintains positional fidelity** via gradient-guided multiplication  
-
-*Post-training analysis shows:*  
-- Positional encoding reconstruction accuracy: **92%**  
-- Rare token retrieval rate: **89%**  
+2. **Maintains positional fidelity** via element multiplication  
 
 ---
 
@@ -63,8 +52,8 @@ The optimizer achieves dual objectives:
 
 | Task            | Aggregation | Attention | Speedup |  
 |-----------------|-------------|-----------|---------|  
-| Reuters Classification | 78.63%      | 77.96%     | 20.0×    |  
-| AG News Perplexity | 2.99%      | 3.15%     | 1.5×     |  
+| Reuters Classification (Val. Accuracy) | 78.63%      | 77.96%     | 20.0×    |  
+| AG News Causal (Val. Perplexity) | 2.99%      | 3.15%     | 1.5×     |  
 
 ---
 
@@ -96,11 +85,9 @@ class Aggregation(layers.Layer):
         return x  # (batch, seq_len, d_model)
 ```
 ## 📚 Future Directions  
-1. Positional encoding variants (rotary, learned convolutions)  
-2. Embedding dimension vs. sequence length tradeoffs  
-3. Hybrid aggregation-attention architectures  
-4. Systematic benchmarking against Linformer/Performer  
-5. Latent space interpolation for concept blending  
+1. Embedding dimension vs. sequence length tradeoffs  
+2. Hierarchical segmentation for sub-region aggregation 
+3. Extending to multimodal inputs (text, vision, audio)
 
 ---
 
