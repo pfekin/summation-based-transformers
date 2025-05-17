@@ -15,7 +15,7 @@ BATCH_SIZE = 64
 MAX_FEATURES = 10000
 EMBED_DIM = 256
 NUM_HEADS = 4
-EPOCHS =30
+EPOCHS = 30
 
 #
 # Dasets - comment and uncomment respective of benchmark
