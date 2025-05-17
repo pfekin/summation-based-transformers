@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.manifold import TSNE
 
 # Configuration
-SEQ_LENGTH = 128
+SEQ_LENGTH = 256
 BATCH_SIZE = 64
 VOCAB_SIZE = 10000
 EMBED_DIM = 256
@@ -25,14 +25,41 @@ def prepare_imdb(split, tokenizer):
 
     return ds.map(process, num_parallel_calls=tf.data.AUTOTUNE)
 
+def prepare_wikitext(split, tokenizer):
+    # Load split from Hugging Face
+    #raw_dataset = load_dataset("wikitext", "wikitext-103-v1", split=split) #+100M words, won't run on Colab
+    raw_dataset = load_dataset("wikitext", "wikitext-2-raw-v1", split=split)# 2M words
+
+    # Extract just the text lines and remove empty lines
+    texts = [x['text'] for x in raw_dataset if x['text'].strip() != '']
+
+    # Wrap texts in a tf.data.Dataset
+    ds = tf.data.Dataset.from_tensor_slices(texts)
+
+    # Adapt tokenizer to the data (fit vocabulary)
+    tokenizer.adapt(ds)
+             
+    # Function to tokenize and create input-target pairs
+    def process(text):
+        tokens = tokenizer(text)
+        return tokens[:-1], tokens[1:]
+    
+    def filter_empty(x, y):
+        return tf.shape(x)[0] > 0
+        
+    return ds.map(process, num_parallel_calls=tf.data.AUTOTUNE)\
+             .filter(filter_empty)    
+             
 tokenizer = tf.keras.layers.TextVectorization(
         max_tokens=VOCAB_SIZE,
         output_sequence_length=SEQ_LENGTH+1,
         standardize='lower_and_strip_punctuation'  # Add normalization
     )
     
-train_ds = prepare_imdb('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-val_ds = prepare_imdb('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)  # Using test as validation
+#train_ds = prepare_imdb('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+#val_ds = prepare_imdb('test', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)  # Using test as validation
+train_ds = prepare_wikitext('train', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
+val_ds = prepare_wikitext('validation', tokenizer).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
 # Position Encoding
 class AdaptivePositionEncoding(layers.Layer):
@@ -74,31 +101,27 @@ class DotProductAttention(layers.Layer):
 
 # Aggregation
 class Aggregation(layers.Layer):
-    def __init__(self, d_model, projection=True, noise=None):
+    def __init__(self, d_model, projection=True, noise_stddev=0.0):
         super().__init__()
         self.d_model = d_model
         self.projection = projection
-        if projection:
-            self.proj = layers.Dense(d_model, activation='linear', use_bias=False)
-        self.noise = layers.GaussianNoise(noise, seed=None) if noise is not None else None
-    def call(self, x, mask=None):
-        if self.projection:
-            x_high = self.proj(x)  # (batch, seq_len, d_model)
-        else:
-            x_high = x
-
+        self.proj = layers.Dense(d_model, activation='linear', use_bias=False) if projection is not None else None
+        self.noise = layers.GaussianNoise(noise_stddev, seed=None)
+        
+    def call(self, x, mask=None, training=None):
+        x = self.proj(x) if self.projection else x
+             
         if mask is not None:
             # Convert mask to float32 and use it to zero out future positions
-            mask = tf.cast(mask, tf.float32)  # (batch, seq_len, seq_len)
-
-            # Aggregate using matrix multiplication (avoids 4D tensor)
-            x_sum = tf.einsum('bij,bjf->bif', mask, x_high)  # (batch, seq_len, d_model*expansion)
-        else:
-            x_sum = tf.reduce_sum(x_high, axis=1, keepdims=True)
+            mask = tf.cast(mask, tf.float32)
             
-        if self.trainable and self.noise is not None:
-            x_sum = self.noise(x_sum)
-        return x_sum + x  # (batch, seq_len, d_model)
+            # Aggregate using matrix multiplication (avoids 4D tensor)
+            x = tf.einsum('bij,bjf->bif', mask, x)  # (batch, seq_len, d_model*expansion)
+        else:
+            x = tf.reduce_sum(x, axis=1, keepdims=True)
+            
+        x = self.noise(x, training=training)
+        return x  # (batch, seq_len, d_model)
 
 # Autoregressive Model
 class LanguageModel(tf.keras.Model):
@@ -109,7 +132,7 @@ class LanguageModel(tf.keras.Model):
         self.pos_enc = AdaptivePositionEncoding(SEQ_LENGTH, EMBED_DIM)
 
         if attention_type == "aggregate":
-            self.attention = Aggregation(EMBED_DIM, projection=True, noise=0.1)
+            self.attention = Aggregation(EMBED_DIM, projection=True, noise_stddev=0.1)
         else:
             self.attention = DotProductAttention(EMBED_DIM, num_heads=4)
              
@@ -139,7 +162,7 @@ class LanguageModel(tf.keras.Model):
 def train_model(attention_type):
     model = LanguageModel(attention_type)
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(1e-3, clipvalue=1.0 ),
+        optimizer=tf.keras.optimizers.Adam(1e-4, clipvalue=1.0 ),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=['accuracy']
     )
