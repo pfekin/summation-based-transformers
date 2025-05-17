@@ -17,11 +17,11 @@
 ## 📊 Performance Highlights  
 
 ### Classification Accuracy vs. Attention Models  
-![Classification Accuracy](media/classification.png)  
+![Classification Accuracy](media/classification.PNG)  
 *Aggregation vs. attention on IMDB/WikiText benchmarks*
 
 ### Auto-regression Perplexity vs. Attention Models  
-![Classification Accuracy](media/autoregression.png)  
+![Classification Accuracy](media/autoregression.PNG)  
 
 ### Cosine Similarity Distribution (Aggregation vs. Attention)  
 ![Cosine Similarity](media/histogram.png)  
