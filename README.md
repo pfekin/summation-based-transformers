@@ -17,6 +17,7 @@
 ## 📊 Performance Highlights  
 
 ### Classification Accuracy vs. Attention Models  
+![Classification Accuracy](media/classification.png)
 ![Classification Accuracy](classification.png)  
 
 ### Auto-regression Perplexity vs. Attention Models  
