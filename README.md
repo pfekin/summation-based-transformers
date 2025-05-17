@@ -9,7 +9,7 @@
 ## 🚀 Key Features  
 - **Linear complexity** (O(n·d)) vs. attention’s quadratic cost (O(n²·d)).  
 - **Emergent orthogonality**: Token embeddings self-organize to minimize interference during aggregation.  
-- **Philosophically grounded**: Inspired by Deleuze’s *multiplicity*, Derrida’s *différance*, and Atlan’s *crystal-smoke* cognitive balance.  
+- **Philosophically grounded**: Inspired by Deleuze’s *multiplicity* and Derrida’s *différance*. 
 - **State-of-the-art efficiency**: Matches attention on IMDB, WikiText, and AG News benchmarks.  
 
 ---
@@ -17,14 +17,15 @@
 ## 📊 Performance Highlights  
 
 ### Classification Accuracy vs. Attention Models  
-![Classification Accuracy](media/classification.png)
-![Classification Accuracy](classification.png)  
+ ![classification](https://github.com/user-attachments/assets/a2f88cfb-0163-4df3-b16a-99392c7894db)
+
 
 ### Auto-regression Perplexity vs. Attention Models  
-![Classification Accuracy]([image-url]/autoregression.png)  
+![autoregression](https://github.com/user-attachments/assets/2249f3a3-2737-4cc9-8920-0226d28aca5b)
 
 ### Cosine Similarity Distribution (Aggregation vs. Attention)  
-![Cosine Similarity Histogram]([image-url]/histogram.png)  
+![histogram](https://github.com/user-attachments/assets/31b1c523-e1ba-44d0-9b5e-25228dc68626)
+
 
 ---
 
