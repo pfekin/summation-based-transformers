@@ -53,8 +53,7 @@ The optimizer achieves dual objectives:
 | Task            | Aggregation | Attention | Speedup |  
 |-----------------|-------------|-----------|---------|  
 | Reuters Classification (Val. Accuracy) | 78.63%      | 77.96%     | 20.0×    |  
-| AG News Causal (Val. Perplexity) | 2.99%      | 3.15%     | 1.5×     |  
-
+| AG News Autoregression (Val. Perplexity) | 2.99%  (less is better)    | 3.15%     | 1.5×     |  
 ---
 
 ## 🛠️ Implementation  
@@ -86,8 +85,8 @@ class Aggregation(layers.Layer):
 ```
 ## 📚 Future Directions  
 1. Embedding dimension vs. sequence length tradeoffs  
-2. Hierarchical segmentation for sub-region aggregation 
-3. Extending to multimodal inputs (text, vision, audio)
+2. Extending to multimodal inputs (text, vision, audio)
+3. Use as a diffusion model
 
 ---
 
