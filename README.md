@@ -86,7 +86,7 @@ class Aggregation(layers.Layer):
 ## 📚 Future Directions  
 1. Embedding dimension vs. sequence length tradeoffs  
 2. Extending to multimodal inputs (text, vision, audio)
-3. Use as a diffusion model
+3. Use in a diffusion model
 
 ---
 
