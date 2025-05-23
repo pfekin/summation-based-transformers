@@ -52,8 +52,8 @@ The optimizer achieves dual objectives:
 
 | Task            | Aggregation | Attention | Speedup |  
 |-----------------|-------------|-----------|---------|  
-| Reuters Classification (Val. Accuracy) | 78.63%      | 77.96%     | 20.0×    |  
-| AG News Autoregression (Val. Perplexity) | 2.99  (less is better)    | 3.15     | 1.5×     |  
+| Reuters Classification (Validation Accuracy) | 78.63%      | 77.96%     | 20.0×    |  
+| AG News Autoregression (Validation Perplexity) | 2.99  (less is better)    | 3.15     | 1.5×     |  
 ---
 
 ## 🛠️ Implementation  
