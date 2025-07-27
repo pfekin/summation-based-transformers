@@ -20,7 +20,7 @@ Instead of computing pairwise token interactions, representational superposition
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/representational-superposition
+git clone https://github.com/pfekin/representational-superposition
 cd representational-superposition
 pip install -r requirements.txt
 
