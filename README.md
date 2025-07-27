@@ -1,99 +1,153 @@
-# High-Dimensional Aggregation for Efficient Sequence Modeling  
+# Representational Superposition: A Sub-Quadratic Alternative to Attention
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-> **Sub-quadratic sequence modeling** through high-dimensional embeddings and geometric orthogonality. Matches attention performance with **7–20× faster computation**.
+## Overview
 
----
+This repository implements **Representational Superposition**, a linear-time alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
 
-## 🚀 Key Features  
-- **Linear complexity** O(n·d) vs. O(n²·d)
-- **Position-semantic fusion** via element-wise multiplication  
-- **Emergent orthogonality**: Self-organized token embeddings  
-- **Derrida-aligned latent space**: Meaning through relational contrasts  
+Instead of computing pairwise token interactions, representational superposition uses direct summation of positionally-modulated embeddings in a shared high-dimensional space. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
 
----
+## Key Features
 
-## 📊 Performance Highlights  
+- **Linear complexity**: O(n) scaling vs. O(n²) for attention
+- **14× faster training** on classification tasks
+- **Competitive performance** across classification, language modeling, and multimodal regression
+- **Unified architecture** works across different modalities and tasks
+- **Simple implementation** with minimal dependencies
 
-### Cosine Similarity Distribution (Aggregation vs. Attention)  
-![Cosine Similarity](media/histogram.png)  
-*Token embedding orthogonality emerges naturally*
+## Quick Start
 
----
+```bash
+git clone https://github.com/yourusername/representational-superposition
+cd representational-superposition
+pip install -r requirements.txt
 
-## ⚙️ Core Mechanics  
+# Run classification benchmark
+python classifier_benchmark.py
 
-### Position-Semantic Fusion  
-Combines token embeddings (**eₜ**) and positional encodings (**pₜ**) via:  
-**ContextVector** = Σₜ₌₁ⁿ (eₜ ⊙ pₜ)  
-- **⊙**: Element-wise multiplication  
-- Preserves both position and semantics through multiplicative interaction  
+# Run language modeling benchmark  
+python causal_benchmark.py
 
-
-### Training Dynamics  
-The optimizer achieves dual objectives:  
-1. **Minimizes semantic clash** through emergent orthogonality  
-2. **Maintains positional fidelity** via element multiplication  
-
----
-
-## 🌐 Philosophical Alignment  
-
-| Concept               | Implementation                   | 
-|-----------------------|-----------------------------------|
-| Derrida's *différance*| Meaning through vector contrasts |
-| Atlan's crystal-smoke | Orthogonal structure + training chaos |
-| Deleuze's multiplicity| Superposition without collision   |
-
----
-
-## 🧪 Benchmark Results  
-
-| Task            | Aggregation | Attention | Speedup |  
-|-----------------|-------------|-----------|---------|  
-| Reuters Classification (Validation Accuracy) | 78.63%      | 77.96%     | 20.0×    |  
-| AG News Autoregression (Validation Perplexity) | 2.99  (less is better)    | 3.15     | 1.5×     |  
----
-
-## 🛠️ Implementation  
-```python  
-
-# Aggregation
-class Aggregation(layers.Layer):
-    def __init__(self, d_model, projection=True, noise_stddev=0.0):
-        super().__init__()
-        self.d_model = d_model
-        self.projection = projection
-        self.proj = layers.Dense(d_model, activation='linear', use_bias=False) if projection is not None else None
-        self.noise = layers.GaussianNoise(noise_stddev, seed=None)
-        
-    def call(self, x, mask=None, training=None):
-        x = self.proj(x) if self.projection else x
-             
-        if mask is not None:
-            # Convert mask to float32 and use it to zero out future positions
-            mask = tf.cast(mask, tf.float32)
-            
-            # Aggregate using matrix multiplication (avoids 4D tensor)
-            x = tf.einsum('bij,bjf->bif', mask, x)  # (batch, seq_len, d_model*expansion)
-        else:
-            x = tf.reduce_sum(x, axis=1, keepdims=True)
-            
-        x = self.noise(x, training=training)
-        return x  # (batch, seq_len, d_model)
+# Run multimodal regression benchmark
+python multimodal_benchmark.py
 ```
-## 📚 Future Directions  
-1. Embedding dimension vs. sequence length tradeoffs  
-2. Extending to multimodal inputs (text, vision, audio)
-3. Use in a diffusion model
 
----
+## Algorithm 
 
-## 📦 Installation  
-```bash  
-git clone https://github.com/yourusername/high-dimensional-aggregation  
-pip install -r requirements.txt  
+### Representational Superposition
+
+```python
+function superposition(tokens, d_model):
+    n = length(tokens)
+    
+    # Embed tokens
+    X = embed(tokens)  # [n, d_model]
+    
+    # Positional modulation
+    pos_enc = sinusoidal_encoding(n, d_model)
+    X_pos = X * pos_enc  # Element-wise multiplication
+    
+    # Optional: bias-free projection
+    if use_projection:
+        X_pos = relu(X_pos @ W1)  # No bias term
+    
+    # Direct summation O(n)
+    pooled = sum(X_pos, axis=0)  # [d_model]
+    
+    return pooled
 ```
-## 📜 License  
-MIT © Pascal Ekin. See [LICENSE](LICENSE) for details.  	
+**Time Complexity: O(n·d)**
+
+## Experimental Results
+
+### Classification Tasks
+
+| Dataset | Attention Accuracy | Superposition Accuracy | Speedup |
+|---------|-------------------|------------------------|---------|
+| IMDB | 0.86 | **0.88** | 14× |
+| 20 Newsgroups | 0.50 | **0.63** | 14× |
+| AG News | 0.91 | 0.91 | 14× |
+| Reuters-21578 | 0.72 | **0.80** | 14× |
+
+### Language Modeling Tasks
+
+| Dataset | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
+|---------|------------------------|----------------------------|---------------------|
+| IMDB | 0.1769  (251) | 0.1664  (259) | **0.1884  (220)** |
+| AG News | 0.2122  (514) | 0.2162  (500) | **0.2251  (466)** |
+| WikiText-2 | 0.1874  (603) | 0.1858  (582) | **0.1935  (554)** |
+| CMU Book Summaries | 0.1620  (391) | 0.1513  (401) |[**0.1680  (351)** |
+
+### Multimodal Regression
+
+| Model | R² |
+|-------|-----|
+| Ridge Regression (Tabular Only) | 0.25 |
+| Attention (Concatenation) | 0.31 |
+| Superposition | **0.41** |
+
+
+## Requirements
+
+- Python 3.8+
+- PyTorch 1.9+
+- transformers
+- scikit-learn
+- numpy
+- pandas
+- matplotlib
+- datasets
+- tensorflow[and-cuda]
+- fsspec
+- huggingface_hub
+
+## Theoretical Foundation
+
+Representational superposition is grounded in several key principles:
+
+1. **Constraint-driven emergence**: Structure arises from optimization pressure within constrained spaces
+2. **Signal-to-noise preservation**: High-dimensional summation amplifies signal while suppressing uncorrelated noise  
+3. **Deferred resolution**: Ambiguity is preserved until final output layers
+4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
+
+For detailed theoretical analysis, see our paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
+
+## Citation
+
+If you use this code in your research, please cite:
+
+```bibtex
+@article{representational_superposition_2025,
+  title={Representational Superposition: A Sub-Quadratic Alternative to Attention},
+  author={[Your Name]},
+  journal={Towards Data Science},
+  year={2025}
+}
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Note**: Under the MIT License, you retain copyright ownership while allowing others to use, modify, and distribute your code with proper attribution.
+
+## Contributing
+
+We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for details.
+
+## Contact
+
+- **Author**: [Your Name]
+- **Email**: [your.email@domain.com]  
+- **Paper**: [Link to paper when published]
+- **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
+
+## Acknowledgments
+
+This work draws inspiration from:
+- Henri Atlan's theory of self-organization
+- Jacques Derrida's concept of différance  
+- Walter Freeman's research on neural dynamics
+- The broader transformer and attention literature
