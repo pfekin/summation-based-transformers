@@ -121,8 +121,8 @@ If you use this code in your research, please cite:
 ```bibtex
 @article{representational_superposition_2025,
   title={Representational Superposition: A Sub-Quadratic Alternative to Attention},
-  author={[Your Name]},
-  journal={Towards Data Science},
+  author={Pascal Ekin},
+  journal={*},
   year={2025}
 }
 ```
@@ -133,14 +133,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Note**: Under the MIT License, you retain copyright ownership while allowing others to use, modify, and distribute your code with proper attribution.
 
-## Contributing
-
-We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for details.
-
 ## Contact
 
-- **Author**: [Your Name]
-- **Email**: [your.email@domain.com]  
+- **Author**: Pascal Ekin
+- **Email**: pfekin@gmail.com 
 - **Paper**: [Link to paper when published]
 - **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
 
@@ -150,4 +146,3 @@ This work draws inspiration from:
 - Henri Atlan's theory of self-organization
 - Jacques Derrida's concept of différance  
 - Walter Freeman's research on neural dynamics
-- The broader transformer and attention literature
