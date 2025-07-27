@@ -75,10 +75,10 @@ function superposition(tokens, d_model):
 
 | Dataset | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
 |---------|------------------------|----------------------------|---------------------|
-| IMDB | 0.1769  (251) | 0.1664  (259) | **0.1884  (220)** |
-| AG News | 0.2122  (514) | 0.2162  (500) | **0.2251  (466)** |
-| WikiText-2 | 0.1874  (603) | 0.1858  (582) | **0.1935  (554)** |
-| CMU Book Summaries | 0.1620  (391) | 0.1513  (401) |[**0.1680  (351)** |
+| IMDB | 0.1769   (251) | 0.1664   (259) | **0.1884   (220)** |
+| AG News | 0.2122   (514) | 0.2162   (500) | **0.2251   (466)** |
+| WikiText-2 | 0.1874  (603) | 0.1858   (582) | **0.1935   (554)** |
+| CMU Book Summaries | 0.1620    (391) | 0.1513   (401) | **0.1680   (351)** |
 
 ### Multimodal Regression
 
@@ -112,7 +112,7 @@ Representational superposition is grounded in several key principles:
 3. **Deferred resolution**: Ambiguity is preserved until final output layers
 4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
 
-For detailed theoretical analysis, see our paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
+For detailed theoretical analysis, see the paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
 
 ## Citation
 
