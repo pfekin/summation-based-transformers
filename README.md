@@ -34,6 +34,12 @@ python causal_benchmark.py
 python multimodal_benchmark.py
 ```
 
+### Google Colab
+```python
+!pip install --upgrade datasets fsspec huggingface_hub
+!pip install git+https://github.com/pfekin/representational-superposition
+```
+
 ## Algorithm 
 
 ### Representational Superposition
@@ -92,14 +98,12 @@ function superposition(tokens, d_model):
 ## Requirements
 
 - Python 3.8+
-- PyTorch 1.9+
+- PyTorch 1.9+ and/or tensorflow[and-cuda]
 - transformers
 - scikit-learn
 - numpy
-- pandas
 - matplotlib
 - datasets
-- tensorflow[and-cuda]
 - fsspec
 - huggingface_hub
 
@@ -142,7 +146,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-This work draws inspiration from:
-- Henri Atlan's theory of self-organization
-- Jacques Derrida's concept of différance  
-- Walter Freeman's research on neural dynamics
+This work draws inspiration from Henri Atlan's theory of self-organization, Jacques Derrida's concept of différance, and Walter Freeman's research on neural dynamics.
