@@ -12,7 +12,7 @@ Instead of computing pairwise token interactions, representational superposition
 ## Key Features
 
 - **Linear complexity**: O(n) scaling vs. O(n²) for attention
-- **14× faster training** on classification tasks
+- **6-14× faster training** on classification tasks
 - **Competitive performance** across classification, language modeling, and multimodal regression
 - **Unified architecture** works across different modalities and tasks
 - **Simple implementation** with minimal dependencies
@@ -143,7 +143,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Email**: pfekin@gmail.com 
 - **Paper**: [Link to paper when published]
 - **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
-
-## Acknowledgments
-
-This work draws inspiration from Henri Atlan's theory of self-organization, Jacques Derrida's concept of différance, and Walter Freeman's research on neural dynamics.
