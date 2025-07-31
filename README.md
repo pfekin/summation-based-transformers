@@ -68,7 +68,7 @@ function superposition(tokens, d_model):
 
 ### Classification Tasks
 
-| Dataset | Attention Accuracy | Superposition Accuracy | Speedup |
+| Dataset | Attention Val Acc | Superposition Val Acc | Speedup |
 |---------|-------------------|------------------------|---------|
 | IMDB | 0.87 | **0.88** | 6 - 14× |
 | 20 Newsgroups | 0.58 | **0.65** | 6 - 14× |
