@@ -118,7 +118,7 @@ For detailed theoretical analysis, see the paper: **"Representational Superposit
 
 ## Citation
 
-If you use this code in your research, please cite:
+If you use this code, algorithms, or ideas from this project in your research, please cite the work:
 
 ```bibtex
 @article{representational_superposition_2025,
