@@ -55,9 +55,8 @@ function superposition(tokens, d_model):
     pos_enc = sinusoidal_encoding(n, d_model)
     X_pos = X * pos_enc  # Element-wise multiplication
     
-    # Optional: bias-free projection
-    if use_projection:
-        X_pos = relu(X_pos @ W1)  # No bias term
+    # Bias-free projection
+    X_pos = relu(X_pos @ W1)  # No bias term
     
     # Direct summation O(n)
     pooled = sum(X_pos, axis=0)  # [d_model]
