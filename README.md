@@ -56,10 +56,10 @@ function superposition(tokens, d_model):
     X_pos = X * pos_enc  # Element-wise multiplication
     
     # Bias-free projection
-    X_pos = relu(X_pos @ W1)  # No bias term
+    X_proj = relu(X_pos @ W1)  # No bias term
     
     # Direct summation O(n)
-    pooled = sum(X_pos, axis=0)  # [d_model]
+    pooled = sum(X_proj, axis=0)  # [d_model]
     
     return pooled
 ```
