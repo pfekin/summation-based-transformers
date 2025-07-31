@@ -51,7 +51,7 @@ function superposition(tokens, d_model):
     # Embed tokens
     X = embed(tokens)  # [n, d_model]
     
-    # Positional modulation
+    # Learned positional embeddings
     pos_enc = PositionalEmbedding(n, d_model)
     X_pos = X * pos_enc  # Element-wise multiplication
     
