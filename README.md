@@ -52,7 +52,7 @@ function superposition(tokens, d_model):
     X = embed(tokens)  # [n, d_model]
     
     # Positional modulation
-    pos_enc = sinusoidal_encoding(n, d_model)
+    pos_enc = PositionalEmbedding(n, d_model)
     X_pos = X * pos_enc  # Element-wise multiplication
     
     # Bias-free projection
