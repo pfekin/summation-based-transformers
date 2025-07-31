@@ -7,7 +7,7 @@
 
 This repository implements **Representational Superposition**, a linear-time alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
 
-Instead of computing pairwise token interactions, representational superposition uses direct summation of positionally-modulated embeddings in a shared high-dimensional space. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
+Instead of computing pairwise token interactions, representational superposition uses direct summation of embeddings that have been modulated by learnable positional encodings and projected through a linear transformation. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
 
 ## Key Features
 
