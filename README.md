@@ -114,7 +114,7 @@ Representational superposition is grounded in several key principles:
 3. **Deferred resolution**: Ambiguity is preserved until final output layers
 4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
 
-For detailed theoretical analysis, see the paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
+For further details, see the paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
 
 ## Citation
 
