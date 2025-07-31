@@ -12,7 +12,6 @@ Instead of computing pairwise token interactions, representational superposition
 ## Key Features
 
 - **Linear complexity**: O(n) scaling vs. O(n²) for attention
-- **6-14× faster training** on classification tasks
 - **Competitive performance** across classification, language modeling, and multimodal regression
 - **Unified architecture** works across different modalities and tasks
 - **Simple implementation** with minimal dependencies
