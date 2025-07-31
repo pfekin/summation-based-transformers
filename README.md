@@ -71,10 +71,10 @@ function superposition(tokens, d_model):
 
 | Dataset | Attention Accuracy | Superposition Accuracy | Speedup |
 |---------|-------------------|------------------------|---------|
-| IMDB | 0.86 | **0.88** | 14× |
-| 20 Newsgroups | 0.50 | **0.63** | 14× |
-| AG News | 0.91 | 0.91 | 14× |
-| Reuters-21578 | 0.72 | **0.80** | 14× |
+| IMDB | 0.87 | **0.88** | 6 - 14× |
+| 20 Newsgroups | 0.58 | **0.65** | 6 - 14× |
+| AG News | 0.91 | 0.91 | 6 - 14× |
+| Reuters-21578 | 0.77 | **0.81** | 6 - 14× |
 
 ### Language Modeling Tasks
 
@@ -87,12 +87,11 @@ function superposition(tokens, d_model):
 
 ### Multimodal Regression
 
-| Model | R² |
-|-------|-----|
-| Ridge Regression (Tabular Only) | 0.25 |
-| Attention (Concatenation) | 0.31 |
-| Superposition | **0.41** |
-
+| Model | MAE | R² |
+|-------|-----|-----|
+| Ridge Regression (Tabular Only) | 0.03 | 0.25 |
+| Attention (Concatenation) | 0.03 | 0.26 |
+| Superposition | **0.03** | **0.36** |
 
 ## Requirements
 
