@@ -39,14 +39,14 @@ def collate_fn(batch, pad_token_id=50256):
 
 # Simple transformer block with configurable attention fusion
 class TransformerBlock(nn.Module):
-    def __init__(self, embed_dim, num_heads, use_differance=False):
+    def __init__(self, embed_dim, num_heads, use_superposition=False):
         super().__init__()
         self.embed_dim = embed_dim
         self.num_heads = num_heads
-        self.use_differance = use_differance
+        self.use_superposition = use_superposition
         
         # For Différance, we don't need multiple heads, just use embed_dim
-        if use_differance:
+        if use_superposition:
             self.head_dim = embed_dim
             self.proj = nn.Sequential(
                 nn.Linear(embed_dim, embed_dim, bias=False),
@@ -74,7 +74,7 @@ class TransformerBlock(nn.Module):
     def attention(self, q, k, v, mask=None):
         batch_size, seq_len = q.size(0), q.size(1)
         
-        if self.use_differance:
+        if self.use_superposition:
             # Pure Addition/Superposition - project then sum token embeddings
             # Project embeddings first (reuse q_proj since it's not doing attention)
             projected_embeddings = self.proj(q)
@@ -124,10 +124,10 @@ class TransformerBlock(nn.Module):
 
 # Simple transformer model
 class SimpleTransformer(nn.Module):
-    def __init__(self, vocab_size, embed_dim=512, num_heads=8, num_layers=4, max_seq_len=512, use_differance=False):
+    def __init__(self, vocab_size, embed_dim=512, num_heads=8, num_layers=4, max_seq_len=512, use_superposition=False):
         super().__init__()
         self.embed_dim = embed_dim
-        self.use_differance = use_differance
+        self.use_superposition = use_superposition
         
         self.token_embedding = nn.Embedding(vocab_size, embed_dim)
         self.pos_embedding = nn.Embedding(max_seq_len, embed_dim)
@@ -137,7 +137,7 @@ class SimpleTransformer(nn.Module):
         #
         """        
         self.layers = nn.ModuleList([
-            TransformerBlock(embed_dim, num_heads, use_differance) 
+            TransformerBlock(embed_dim, num_heads, use_superposition) 
             for _ in range(num_layers)
         ])
         """
@@ -146,7 +146,7 @@ class SimpleTransformer(nn.Module):
         #
         layers = []
         for i in range(num_layers):
-            attention = False if i == (num_layers - 1) else use_differance
+            attention = False if i == (num_layers - 1) else use_superposition
             layers.append(TransformerBlock(embed_dim, num_heads, attention)) 
         self.layers = nn.ModuleList(layers)    
                 
@@ -162,7 +162,7 @@ class SimpleTransformer(nn.Module):
         
         # Embeddings
         positions = torch.arange(seq_len, device=input_ids.device).unsqueeze(0)
-        if self.use_differance:
+        if self.use_superposition:
             x = self.token_embedding(input_ids) * (self.pos_embedding(positions) + 2.0) # positional encoding bias 
         else:
             x = self.token_embedding(input_ids) + self.pos_embedding(positions)
@@ -305,8 +305,8 @@ def main():
     # Train both models
     results = {}
     
-    for use_differance in [True, False]:
-        model_name = "Representational Superosition" if use_differance else "Standard"
+    for use_superposition in [True, False]:
+        model_name = "Representational Superosition" if use_superposition else "Standard"
         print(f"\nTraining {model_name} Model")
         
         model = SimpleTransformer(
@@ -315,7 +315,7 @@ def main():
             num_heads=8,
             num_layers=4,
             max_seq_len = MAX_SEQ_LENGTH,
-            use_differance=use_differance
+            use_superposition=use_superposition
         ).to(device)
         
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)

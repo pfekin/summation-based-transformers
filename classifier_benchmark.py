@@ -104,7 +104,7 @@ class PositionalEmbedding(layers.Layer):
         return positional_encodings  
 
 # Aggregation
-class Aggregation(layers.Layer):
+class Superposition(layers.Layer):
     def __init__(self, d_model):
         super().__init__()
         self.d_model = d_model
@@ -144,12 +144,12 @@ class DotProductAttention(layers.Layer):
     def compute_output_shape(self, input_shape):
         return input_shape
 
-def build_model(attention_type="aggregate", **kwargs):
+def build_model(attention_type="superposition", **kwargs):
     inputs = layers.Input(shape=(MAX_LEN,))
     x = layers.Embedding(MAX_FEATURES, EMBED_DIM)(inputs)
 
-    if attention_type == "aggregate":
-        x = Aggregation(EMBED_DIM)(x)
+    if attention_type == "superposition":
+        x = Superposition(EMBED_DIM)(x)
     else:
         x = DotProductAttention(EMBED_DIM)(x)
         x = layers.GlobalAvgPool1D()(x)
@@ -159,7 +159,7 @@ def build_model(attention_type="aggregate", **kwargs):
 
 # Training Loop
 attention_types = {
-    "aggregate": {},
+    "superposition": {},
     "dot_product": {"num_heads": NUM_HEADS}
 }
 
