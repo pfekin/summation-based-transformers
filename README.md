@@ -78,15 +78,15 @@ function superposition(tokens, d_model, pos_bias=1):
 ### Language Modeling Tasks
 
 | Dataset | Metric | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
-|---------|------------------------|----------------------------|---------------------|
-| IMDB | Perplexity | 251 | 259 | ** 220 ** |
-| IMDB | Accuracy | 0.1769 | 0.1664 | **0.1884 ** |
+|---------| ------------ |------------------------|----------------------------|---------------------|
+| IMDB | Perplexity | 251 | 259 | **220** |
+|      | Accuracy | 0.1769 | 0.1664 | **0.1884** |
 | AG News | Perplexity | 514 | 500 | **466** |
-| AG News | Accuracy | 0.2122 | 0.2162 | **0.2251 ** |
+|         | Accuracy | 0.2122 | 0.2162 | **0.2251** |
 | WikiText-2 | Perplexity | 603 | 582 | **554** |
-| WikiText-2 | Accuracy | 0.1874 | 0.1858 | **0.1935** |
+|            | Accuracy | 0.1874 | 0.1858 | **0.1935** |
 | CMU Book Summaries | Perplexity | 391 | 401 | **351** |
-| CMU Book Summaries | Accuracy | 0.1620 | 0.1513 | **0.1680** |
+|                    | Accuracy | 0.1620 | 0.1513 | **0.1680** |
 
 ### Multimodal Regression
 
