@@ -90,11 +90,11 @@ function superposition(tokens, d_model, pos_bias=1):
 
 ### Multimodal Regression
 
-| Model | MAE | R² |
-|-------|-----|-----|
-| Ridge Regression (Tabular Only) | 0.0301 | 0.2526 |
-| Attention (Concatenation) | 0.0314 | 0.2599 |
-| Superposition | **0.0289** | **0.3576** |
+| Model | MAE | R² | Speedup |
+|-------|-----|-----|---------|
+| Ridge Regression (Tabular Only) | 0.0301 | 0.2526 | | 
+| Attention (Concatenation) | 0.0314 | 0.2599 | 1x |
+| Superposition | **0.0289** | **0.3576** | 2 - 15x |
 
 ## Requirements
 
