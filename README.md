@@ -114,7 +114,7 @@ Representational superposition is grounded in several key principles:
 
 1. **Constraint-driven emergence**: Structure arises from optimization pressure within constrained spaces
 2. **Signal-to-noise preservation**: High-dimensional summation amplifies signal while suppressing uncorrelated noise  
-3. **Deferred resolution**: Ambiguity is preserved until final output layers
+3. **Representational differentiation**: Meaning emerges through geometric contrast and spatial differentiation rather than convergence
 4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
 
 For further details, see the paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
