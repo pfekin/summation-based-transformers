@@ -44,21 +44,21 @@ python multimodal_benchmark.py
 ### Representational Superposition
 
 ```python
-function superposition(tokens, d_model):
+function superposition(tokens, d_model, pos_bias=1):
     n = length(tokens)
     
     # Embed tokens
     X = embed(tokens)  # [n, d_model]
     
     # Learned positional embeddings
-    pos_enc = PositionalEmbedding(n, d_model)
+    pos_enc = PositionalEmbedding(n, d_model) + pos_bias
     X_pos = X * pos_enc  # Element-wise multiplication
     
     # Bias-free projection
     X_proj = relu(X_pos @ W1)  # No bias term
     
     # Direct summation O(n)
-    pooled = sum(X_proj, axis=0)  # [d_model]
+    pooled = sum(X_proj, axis=0)  # [n, d_model]
     
     return pooled
 ```
@@ -70,27 +70,31 @@ function superposition(tokens, d_model):
 
 | Dataset | Attention Val Acc | Superposition Val Acc | Speedup |
 |---------|-------------------|------------------------|---------|
-| IMDB | 0.87 | **0.88** | 6 - 14× |
-| 20 Newsgroups | 0.58 | **0.65** | 6 - 14× |
-| AG News | 0.91 | 0.91 | 6 - 14× |
-| Reuters-21578 | 0.77 | **0.81** | 6 - 14× |
+| IMDB | 0.87 | **0.88** | 6 - 18× |
+| 20 Newsgroups | 0.58 | **0.65** | 6 - 18× |
+| AG News | 0.91 | 0.91 | 6 - 18× |
+| Reuters-21578 | 0.77 | **0.81** | 6 - 18× |
 
 ### Language Modeling Tasks
 
-| Dataset | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
+| Dataset | Metric | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
 |---------|------------------------|----------------------------|---------------------|
-| IMDB | 0.1769   (251) | 0.1664   (259) | **0.1884   (220)** |
-| AG News | 0.2122   (514) | 0.2162   (500) | **0.2251   (466)** |
-| WikiText-2 | 0.1874  (603) | 0.1858   (582) | **0.1935   (554)** |
-| CMU Book Summaries | 0.1620    (391) | 0.1513   (401) | **0.1680   (351)** |
+| IMDB | Perplexity | 251 | 259 | ** 220 ** |
+| IMDB | Accuracy | 0.1769 | 0.1664 | **0.1884 ** |
+| AG News | Perplexity | 514 | 500 | **466** |
+| AG News | Accuracy | 0.2122 | 0.2162 | **0.2251 ** |
+| WikiText-2 | Perplexity | 603 | 582 | **554** |
+| WikiText-2 | Accuracy | 0.1874 | 0.1858 | **0.1935** |
+| CMU Book Summaries | Perplexity | 391 | 401 | **351** |
+| CMU Book Summaries | Accuracy | 0.1620 | 0.1513 | **0.1680** |
 
 ### Multimodal Regression
 
 | Model | MAE | R² |
 |-------|-----|-----|
-| Ridge Regression (Tabular Only) | 0.03 | 0.25 |
-| Attention (Concatenation) | 0.03 | 0.26 |
-| Superposition | **0.03** | **0.36** |
+| Ridge Regression (Tabular Only) | 0.0301 | 0.2526 |
+| Attention (Concatenation) | 0.0314 | 0.2599 |
+| Superposition | **0.0289** | **0.3576** |
 
 ## Requirements
 
