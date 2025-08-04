@@ -77,8 +77,8 @@ function superposition(tokens, d_model, pos_bias=1):
 
 ### Language Modeling Tasks
 
-| Dataset | Metric | Attention Val Acc (PPL) | Superposition Val Acc (PPL) | Hybrid Val Acc (PPL) |
-|---------| ------------ |------------------------|----------------------------|---------------------|
+| Dataset | Validation Metric | Attention | Superposition | Hybrid |
+|---------| ---------------------- |----------------------------|----------------------------|----------------------------|
 | IMDB | Perplexity | 251 | 259 | **220** |
 |      | Accuracy | 0.1769 | 0.1664 | **0.1884** |
 | AG News | Perplexity | 514 | 500 | **466** |
