@@ -165,7 +165,7 @@ attention_types = {
 
 results = {}
 for name, params in attention_types.items():
-    print(f"\n=== Training {name} attention ===")
+    print(f"\nTraining {name} attention")
     model = build_model(attention_type=name, **params)
     model.compile(
         optimizer=tf.keras.optimizers.Adam(1e-4, clipvalue=1.0),
