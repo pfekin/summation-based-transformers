@@ -66,9 +66,9 @@ class TransformerBlock(nn.Module):
         
         # Simple feedforward
         self.ff = nn.Sequential(
-            nn.Linear(embed_dim, 4 * embed_dim),
+            nn.Linear(embed_dim, embed_dim),
             nn.ReLU(),
-            nn.Linear(4 * embed_dim, embed_dim)
+            nn.Linear(embed_dim, embed_dim)
         )
         
     def attention(self, q, k, v, mask=None):
