@@ -23,11 +23,11 @@ git clone https://github.com/pfekin/representational-superposition
 cd representational-superposition
 pip install -r requirements.txt
 
-# Run classification benchmark
-python classifier_benchmark.py
-
 # Run language modeling benchmark  
 python causal_benchmark.py
+
+# Run classification benchmark
+python classifier_benchmark.py
 
 # Run multimodal regression benchmark
 python multimodal_benchmark.py
