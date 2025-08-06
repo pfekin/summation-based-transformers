@@ -52,9 +52,9 @@ class TransformerBlock(nn.Module):
             self.head_dim = embed_dim
             self.proj = nn.Sequential(
                 nn.Linear(embed_dim, embed_dim, bias=False),
-                nn.ReLU(),# GELU
+                nn.ReLU(),
                 nn.Linear(embed_dim, embed_dim, bias=False),
-                nn.ReLU() # GELU
+                nn.ReLU()
             ) 
         else:
             self.head_dim = embed_dim // num_heads
@@ -135,7 +135,7 @@ class SimpleTransformer(nn.Module):
         self.pos_embedding = nn.Embedding(max_seq_len, embed_dim)
         
         #
-        # Puere superposition approach, uncomment to benchmark
+        # Pure superposition approach, uncomment to benchmark
         #
         """        
         self.layers = nn.ModuleList([

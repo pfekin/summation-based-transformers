@@ -45,14 +45,14 @@ class TransformerBlock(nn.Module):
         self.num_heads = num_heads
         self.use_superposition = use_superposition
         
-        # For Différance, we don't need multiple heads, just use embed_dim
+        # For Representational Superposition, we don't need multiple heads, just use embed_dim
         if use_superposition:
             self.head_dim = embed_dim
             self.proj = nn.Sequential(
                 nn.Linear(embed_dim, embed_dim, bias=False),
-                nn.ReLU(),# GELU
+                nn.ReLU(),
                 nn.Linear(embed_dim, embed_dim, bias=False),
-                nn.ReLU()# GELU
+                nn.ReLU()
             ) 
         else:
             self.head_dim = embed_dim // num_heads
@@ -131,8 +131,9 @@ class SimpleTransformer(nn.Module):
         self.token_embedding = nn.Embedding(vocab_size, embed_dim)
         self.pos_embedding = nn.Embedding(max_seq_len, embed_dim)
         
+        
         #
-        # Puere superposition approach, uncomment to benchmark
+        # Pure superposition approach, uncomment to benchmark
         #
         """        
         self.layers = nn.ModuleList([
@@ -148,6 +149,7 @@ class SimpleTransformer(nn.Module):
             attention = False if i == (num_layers - 1) else use_superposition
             layers.append(TransformerBlock(embed_dim, num_heads, attention)) 
         self.layers = nn.ModuleList(layers)    
+                
                 
         self.final_norm = nn.LayerNorm(embed_dim)
         self.output_projection = nn.Linear(embed_dim, vocab_size)

@@ -111,7 +111,7 @@ class Superposition(layers.Layer):
     
     def build(self, input_shape):
         self.pos_encoder = PositionalEmbedding(input_shape[1], self.d_model)
-        self.proj = layers.Dense(self.d_model, activation='relu', use_bias=False)
+        self.proj = layers.Dense(self.d_model, activation="relu", use_bias=False)
         
     def call(self, x, training=None):
         x = x * (self.pos_encoder(x) + 1.0) # positional encoding bias
