@@ -1,4 +1,4 @@
-# Constraint-Driven Emergence: A Sub-Quadratic Alternative to Attention
+# Representational Superposition: Constraint-Driven Emergence in Sequence Modeling
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -114,10 +114,10 @@ Representational superposition is grounded in several key principles:
 
 1. **Constraint-driven emergence**: Structure arises from optimization pressure within constrained spaces
 2. **Signal-to-noise preservation**: High-dimensional summation amplifies signal while suppressing uncorrelated noise  
-3. **Representational differentiation**: Meaning emerges through geometric contrast and spatial differentiation rather than convergence
+3. **Representational differentiation**: Meaning emerges through manifold differentiation rather than convergence
 4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
 
-For further details, see the paper: **"Representational Superposition: A Sub-Quadratic Alternative to Attention"**
+For further details, see the paper: **"Representational Superposition: Constraint-Driven Emergence in Sequence Modeling"**
 
 ## Citation
 
@@ -125,7 +125,7 @@ If you use this code, algorithms, or ideas from this project in your research, p
 
 ```bibtex
 @article{representational_superposition_2025,
-  title={Representational Superposition: A Sub-Quadratic Alternative to Attention},
+  title={Representational Superposition: Constraint-Driven Emergence in Sequence Modeling},
   author={Pascal Ekin},
   journal={*},
   year={2025}
