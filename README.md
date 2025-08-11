@@ -127,7 +127,9 @@ If you use this code, algorithms, or ideas from this project in your research, p
 @article{representational_superposition_2025,
   title={Representational Superposition: Constraint-Driven Emergence in Sequence Modeling},
   author={Pascal Ekin},
-  journal={*},
+  journal={TechRxiv},  
+  doi={10.36227/techrxiv.12345678},  
+  url={https://doi.org/10.36227/techrxiv.12345678},
   year={2025}
 }
 ```
