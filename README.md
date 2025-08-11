@@ -128,9 +128,9 @@ If you use this code, algorithms, or ideas from this project in your research, p
   title={Representational Superposition: Constraint-Driven Emergence in Sequence Modeling},
   author={Pascal Ekin},
   journal={TechRxiv},  
+  year={2025},
   doi={10.36227/techrxiv.12345678},  
   url={https://doi.org/10.36227/techrxiv.12345678},
-  year={2025}
 }
 ```
 
@@ -143,6 +143,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 - **Author**: Pascal Ekin
-- **Email**: pfekin@gmail.com 
-- **Paper**: [Link to paper when published]
+- 📧 **Email**: pfekin@gmail.com 
+- 📄 **Preprint:** [Download from TechRxiv](https://doi.org/10.36227/techrxiv.12345678)  
 - **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
