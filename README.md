@@ -142,7 +142,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-- **Author**: Pascal Ekin
+- 👨‍💻 **Author**: Pascal Ekin
 - 📧 **Email**: pfekin@gmail.com 
-- 📄 **Preprint:** [Download from TechRxiv](https://doi.org/10.36227/techrxiv.12345678)  
-- **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
+- 📄 **Paper:** [Download from TechRxiv](https://doi.org/10.36227/techrxiv.12345678)  
+- 🐛 **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
