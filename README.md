@@ -1,20 +1,20 @@
-# Representational Superposition: Constraint-Driven Emergence in Sequence Modeling
+# Linear-Time Sequence Modelling with Constraint-Driven Emergence
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
 
-This repository implements **Representational Superposition**, a linear-time alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
+This repository implements **direct summation**, a linear-time alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
 
-Instead of computing pairwise token interactions, representational superposition uses direct summation of embeddings that have been modulated by learnable positional encodings and projected through a linear transformation. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
+Instead of computing pairwise token interactions, direct summation aggregates embeddings that have been modulated by learnable positional encodings and projected through a linear transformation. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
 
 ## Key Features
 
 - **Linear complexity**: O(n) scaling vs. O(n²) for attention
 - **Competitive performance** language modeling, across classification, and multimodal regression
 - **Unified architecture** works across different modalities and tasks
-- **Simple implementation** with minimal dependencies
+- **Drop-in** replacement for self-attention, requiring no changes to the overall transformer architecture
 
 ## Quick Start
 
@@ -41,10 +41,10 @@ python multimodal_benchmark.py
 
 ## Algorithm 
 
-### Representational Superposition
+### Direct Summation
 
 ```python
-function superposition(tokens, d_model, pos_bias=1):
+function summation(tokens, d_model, pos_bias=1):
     n = length(tokens)
     
     # Embed tokens
@@ -110,14 +110,14 @@ function superposition(tokens, d_model, pos_bias=1):
 
 ## Theoretical Foundation
 
-Representational superposition is grounded in several key principles:
+Constraint-Driven Emergence is grounded in several key principles:
 
 1. **Constraint-driven emergence**: Structure arises from optimization pressure within constrained spaces
 2. **Signal-to-noise preservation**: High-dimensional summation amplifies signal while suppressing uncorrelated noise  
 3. **Representational differentiation**: Meaning emerges through manifold differentiation rather than convergence
 4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
 
-For further details, see the paper: **"Representational Superposition: Constraint-Driven Emergence in Sequence Modeling"**
+For further details, see the paper: **"Linear-Time Sequence Modelling with Constraint-Driven Emergence"**
 
 ## Citation
 
