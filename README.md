@@ -112,10 +112,11 @@ function summation(tokens, d_model, pos_bias=1):
 
 Constraint-Driven Emergence is grounded in several key principles:
 
-1. **Constraint-driven emergence**: Structure arises from optimization pressure within constrained spaces
-2. **Signal-to-noise preservation**: High-dimensional summation amplifies signal while suppressing uncorrelated noise  
-3. **Representational differentiation**: Meaning emerges through manifold differentiation rather than convergence
-4. **Modality decoupling**: Forces abstraction by preventing reliance on modality-specific cues
+1. **Constraint without predetermined pathways**: Summation eliminates dedicated channels, forcing functional specialization through competitive dynamics within shared embedding space
+2. **Representational bottleneck as organizing force**: The summation operation compels discovery of encodings where task-relevant information survives aggregation
+3. **Optimization pressure as feedback mechanism**: Gradient descent drives embeddings toward arrangements that preserve signal while allowing noise to interfere destructively
+4. **Emergent differentiation through constraint**: Meaningful structure develops from the interaction between system capacity and architectural limitations rather than explicit design
+
 
 For further details, see the paper: **"Linear-Time Sequence Modelling with Constraint-Driven Emergence"**
 
