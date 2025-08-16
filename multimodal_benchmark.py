@@ -27,8 +27,8 @@ class PositionalEmbedding(layers.Layer):
         positional_encodings = self.pos_embedding(positions)  
         return positional_encodings 
 
-# Aggregation
-class Aggregation(layers.Layer):
+# Superposition
+class Superposition(layers.Layer):
     def __init__(self, d_model):
         super().__init__()
         self.d_model = d_model
@@ -60,7 +60,7 @@ class NumericalFeatureProcessor(layers.Layer):
         self.dense_layers = []
         for _ in range(num_features):
             self.dense_layers.append(layers.Dense(d_model, activation="relu"))
-            self.dense_layers.append(layers.Dense(d_model, activation="relu"))
+            self.dense_layers.append(layers.Dense(d_model, activation="gelu"))
 
     def call(self, inputs):
         split_features = tf.split(inputs, num_or_size_splits=self.num_features, axis=1)
@@ -114,7 +114,7 @@ vectorizer = layers.TextVectorization(
 vectorizer.adapt(X_text_train)  
 
 #
-# Train multimodal modal
+# Train attention multimodal modal
 #
 
 text_input = layers.Input(shape=(1,), dtype=tf.string, name="text_input")
@@ -170,7 +170,7 @@ print(model.summary())
 y_pred_multi = model.predict(test_dataset)
 
 #
-# Representational Superposition Multimodal Model
+# Train Representational Superposition Multimodal Model
 #
 
 text_input = layers.Input(shape=(1,), dtype=tf.string, name="text_input")
@@ -180,7 +180,7 @@ num_input = layers.Input(shape=(4,), dtype=tf.float32, name="num_input")
 x_text = vectorizer(text_input)
 x_text = layers.Embedding(
     input_dim=len(vectorizer.get_vocabulary()) + 1, output_dim=EMBED_DIM)(x_text)  # Output shape: (batch_size, sequence_length, EMBED_DIM)
-x_text = Aggregation(EMBED_DIM)(x_text) # Text categorical embeddings are aggregated
+x_text = Superposition(EMBED_DIM)(x_text) # Text categorical embeddings are aggregated
 
 # Numerical Processing Branch using the custom layer
 x_num = NumericalFeatureProcessor(EMBED_DIM, X_num_train.shape[1])(num_input)
@@ -209,9 +209,9 @@ model.compile(
 )
 
 # Convert text data to TensorFlow datasets for training and prediction
-train_dataset = tf.data.Dataset.from_tensor_slices(({'text_input': X_text_train, 'num_input': X_num_train}, y_train)).batch(64)
-val_dataset = tf.data.Dataset.from_tensor_slices(({'text_input': X_text_val, 'num_input': X_num_val}, y_val)).batch(64)
-test_dataset_aggr = tf.data.Dataset.from_tensor_slices(({'text_input': X_text_test, 'num_input': X_num_test})).batch(64)
+train_dataset = tf.data.Dataset.from_tensor_slices(({"text_input": X_text_train, "num_input": X_num_train}, y_train)).batch(64)
+val_dataset = tf.data.Dataset.from_tensor_slices(({"text_input": X_text_val, "num_input": X_num_val}, y_val)).batch(64)
+test_dataset_aggr = tf.data.Dataset.from_tensor_slices(({"text_input": X_text_test, "num_input": X_num_test})).batch(64)
 
 model.fit(
     train_dataset,

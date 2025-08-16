@@ -10,6 +10,13 @@ from tqdm import tqdm
 from load_datasets import load_wikitext2, load_imdb, load_ag_news, load_cmu_book_summaries
 from sklearn.decomposition import PCA
 
+"""
+Implementation Note:
+The language modeling implementation uses cumsum for clarity of exposition. 
+This PyTorch function is broken for performance and does not reflect the theoretical O(n) vs O(n²) 
+complexity difference, consequently underrepresenting the massive speedup gains.
+"""
+
 # Custom collate function to handle variable-length sequences
 def collate_fn(batch, pad_token_id=50256):
     # Get the maximum length in the batch
@@ -439,7 +446,7 @@ def main():
     
     
     for use_superposition in [True, False]:
-        model_name = "Representational Superposition" if use_superposition else "Standard"
+        model_name = "Superposition" if use_superposition else "Standard"
         print(f"\nTraining {model_name} Model")
         
         model = SimpleTransformer(
@@ -486,19 +493,13 @@ def main():
         plot_layerwise_cosine(all_layerwise, title=f"{model_name} - Layer Redundancy")
         plot_embedding_alignment(all_layerwise, title=f"{model_name} - Embedding Alignment to Layer Mean")
         
-        
-        # Example usage after validation
-        plot_layerwise_cosine(all_layerwise, title=f"{model_name} - Layer Redundancy")
-        plot_embedding_alignment(all_layerwise, title=f"{model_name} - Embedding Alignment to Layer Mean")
-        
-        """
         # Analyze orthogonality
         print(f"\nAnalyzing orthogonality for {model_name} model...")
         similarities = analyze_orthogonality(val_embeddings, f"{model_name} Attention")
         
         print(f"{model_name} - Mean cosine similarity: {similarities.mean():.4f}")
         print(f"{model_name} - Std cosine similarity: {similarities.std():.4f}")
-        """
+        
     
     # After the main loop over both models is complete, create the comparison plot
     if "Superposition" in all_layerwise_data and "Standard" in all_layerwise_data:

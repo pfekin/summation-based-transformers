@@ -8,6 +8,13 @@ import numpy as np
 from tqdm import tqdm
 from load_datasets import load_wikitext2, load_imdb, load_ag_news, load_cmu_book_summaries
 
+"""
+Implementation Note:
+The language modeling implementation uses cumsum for clarity of exposition. 
+This PyTorch function is broken for performance and does not reflect the theoretical O(n) vs O(n²) 
+complexity difference, consequently underrepresenting the massive speedup gains.
+"""
+
 # Custom collate function to handle variable-length sequences
 def collate_fn(batch, pad_token_id=50256):
     # Get the maximum length in the batch
@@ -307,7 +314,7 @@ def main():
     results = {}
     
     for use_superposition in [True, False]:
-        model_name = "Representational Superosition" if use_superposition else "Standard"
+        model_name = "Superosition" if use_superposition else "Standard"
         print(f"\nTraining {model_name} Model")
         
         model = SimpleTransformer(
