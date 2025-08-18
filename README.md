@@ -24,13 +24,13 @@ cd representational-superposition
 pip install -r requirements.txt
 
 # Run language modeling benchmark  
-python causal_benchmark.py
+python causal.py
 
 # Run classification benchmark
-python classifier_benchmark.py
+python classifier.py
 
 # Run multimodal regression benchmark
-python multimodal_benchmark.py
+python multimodal.py
 ```
 
 ### Google Colab
@@ -79,14 +79,14 @@ function summation(tokens, d_model, pos_bias=1):
 
 | Dataset | Validation Metric | Attention | Superposition | Hybrid |
 |---------| ---------------------- |----------------------------|----------------------------|----------------------------|
-| IMDB | Perplexity | 251 | 259 | **220** |
-|      | Accuracy | 0.1769 | 0.1664 | **0.1884** |
-| AG News | Perplexity | 514 | 500 | **466** |
-|         | Accuracy | 0.2122 | 0.2162 | **0.2251** |
-| WikiText-2 | Perplexity | 603 | 582 | **554** |
-|            | Accuracy | 0.1874 | 0.1858 | **0.1935** |
-| CMU Book Summaries | Perplexity | 391 | 401 | **351** |
-|                    | Accuracy | 0.1620 | 0.1513 | **0.1680** |
+| IMDB | Perplexity | 150 | 198 | **145** |
+|      | Accuracy | 0.22 | 0.18 | **0.22** |
+| AG News | Perplexity | 64 | 79 | **66** |
+|         | Accuracy | 0.34 | 0.32 | **0.34** |
+| WikiText-2 | Perplexity | 300 | 331 | **274** |
+|            | Accuracy | 0.22 | 0.21 | **0.23** |
+| CMU Book Summaries | Perplexity | 286 | 335 | **269** |
+|                    | Accuracy | 0.18 | 0.17 | **0.19** |
 
 ### Multimodal Regression
 
