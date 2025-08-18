@@ -81,8 +81,8 @@ function summation(tokens, d_model, pos_bias=1):
 |---------| ---------------------- |----------------------------|----------------------------|----------------------------|
 | IMDB | Perplexity | 150 | 198 | **145** |
 |      | Accuracy | 0.22 | 0.18 | **0.22** |
-| AG News | Perplexity | 64 | 79 | **66** |
-|         | Accuracy | 0.34 | 0.32 | **0.34** |
+| AG News | Perplexity | **64** | 79 | 66 |
+|         | Accuracy | **0.34** | 0.32 | **0.34** |
 | WikiText-2 | Perplexity | 300 | 331 | **274** |
 |            | Accuracy | 0.22 | 0.21 | **0.23** |
 | CMU Book Summaries | Perplexity | 286 | 335 | **269** |
