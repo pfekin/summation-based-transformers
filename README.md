@@ -125,8 +125,8 @@ For further details, see the paper: **"Linear-Time Sequence Modelling with Const
 If you use this code, algorithms, or ideas from this project in your research, please cite the work:
 
 ```bibtex
-@article{representational_superposition_2025,
-  title={Representational Superposition: Constraint-Driven Emergence in Sequence Modeling},
+@article{Constraint_Driven_Emergence_2025,
+  title={Linear-Time Sequence Modelling with Constraint-Driven Emergence},
   author={Pascal Ekin},
   journal={TechRxiv},  
   year={2025},
