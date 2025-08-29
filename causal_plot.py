@@ -134,7 +134,7 @@ class TransformerBlock(nn.Module):
 
 
 class SimpleTransformer(nn.Module):
-    def __init__(self, vocab_size, embed_dim=512, num_heads=8, num_layers=4, max_seq_len=512, use_superposition=False):
+    def __init__(self, vocab_size, embed_dim=512, num_heads=8, num_layers=4, max_seq_len=512, use_superposition=False, attention_final=False):
         super().__init__()
         self.embed_dim = embed_dim
         self.use_superposition = use_superposition
@@ -142,23 +142,17 @@ class SimpleTransformer(nn.Module):
         self.token_embedding = nn.Embedding(vocab_size, embed_dim)
         self.pos_embedding = nn.Embedding(max_seq_len, embed_dim)
         
-        #
-        # Pure superposition approach, uncomment to benchmark
-        #
-        """        
-        self.layers = nn.ModuleList([
-            TransformerBlock(embed_dim, num_heads, use_superposition) 
+        if attention_final:
+            layers = []
+            for i in range(num_layers):
+                attention = False if i == (num_layers - 1) else use_superposition
+                layers.append(TransformerBlock(embed_dim, num_heads, attention))
+            self.layers = nn.ModuleList(layers)
+        else:
+            self.layers = nn.ModuleList([
+                TransformerBlock(embed_dim, num_heads, use_superposition) 
             for _ in range(num_layers)
-        ])
-        """
-        #
-        # Hybrid approach (last layer is an attention layer) 
-        #
-        layers = []
-        for i in range(num_layers):
-            attention = False if i == (num_layers - 1) else use_superposition
-            layers.append(TransformerBlock(embed_dim, num_heads, attention))
-        self.layers = nn.ModuleList(layers)
+            ])
 
         self.final_norm = nn.LayerNorm(embed_dim)
         self.output_projection = nn.Linear(embed_dim, vocab_size)
@@ -370,6 +364,8 @@ def eval_models(acts_vanilla, acts_mod, model_names=("Vanilla","Modified")):
 # Main experiment
 def main():
     MAX_SEQ_LENGTH = 512
+    ATTENTION_FINAL = True # If True will use attention in last layer
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     # Initialize tokenizer
@@ -393,9 +389,11 @@ def main():
     #train_dataset, val_dataset, _ = load_cmu_book_summaries(tokenizer, max_length=MAX_SEQ_LENGTH, split_data=True)
     #print(f"CMU Book Summaries - Train: {len(train_dataset)}, Val: {len(val_dataset)}")
     
-    # Use smaller subset for faster experimentation (optional)
+    # Use smaller subset for faster experimentation
     train_subset_size = min(5000, len(train_dataset))  # Use 5000 samples or full dataset if smaller
     val_subset_size = min(1000, len(val_dataset))
+    #train_subset_size = len(train_dataset) # uncomment this line and next one (and comment 2 lines above) for full dataset  
+    #val_subset_size = en(val_dataset)
     
     train_subset = torch.utils.data.Subset(train_dataset, range(train_subset_size))
     val_subset = torch.utils.data.Subset(val_dataset, range(val_subset_size))
@@ -425,7 +423,8 @@ def main():
             num_heads=8,
             num_layers=4,
             max_seq_len = MAX_SEQ_LENGTH,
-            use_superposition=use_superposition
+            use_superposition=use_superposition,
+            attention_final=ATTENTION_FINAL
         ).to(device)
         
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
