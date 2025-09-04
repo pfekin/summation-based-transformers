@@ -1,11 +1,11 @@
-# Linear-Time Sequence Modelling with Constraint-Driven Emergence
+# Linear-Complexity Sequence Modelling with Constraint-Driven Emergence
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
 
-This repository implements **direct summation**, a linear-time alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
+This repository implements **direct summation**, a linear-complexity alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
 
 Instead of computing pairwise token interactions, direct summation aggregates embeddings that have been modulated by learnable positional encodings and projected through ReLU transformations. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
 
@@ -62,7 +62,7 @@ function summation(tokens, d_model, pos_bias=1):
     
     return pooled
 ```
-**Time Complexity: O(n·d)**
+**Complexity: O(n·d)**
 
 ## Experimental Results
 
@@ -109,13 +109,18 @@ function summation(tokens, d_model, pos_bias=1):
 
 ## Theoretical Foundation
 
-Constraint-Driven Emergence is grounded in several key principles:
+Constraint-driven emergence is grounded in principles of functional self-organization, where structure
+and function co-emerge from system dynamics rather than predetermined design.
 
-1. **Constraint without predetermined pathways**: Summation eliminates dedicated channels, forcing functional specialization through competitive dynamics within shared embedding space.
-2. **Representational bottleneck as organizing force**: The summation operation compels discovery of encodings where task-relevant information survives aggregation.
-3. **Optimization pressure as feedback mechanism**: Gradient descent drives embeddings toward arrangements that preserve meaningful signal while allowing noise to interfere destructively.
-4. **Emergent differentiation through constraint**: Meaningful structure develops from the interaction between system capacity and architectural limitations, rather than through explicit design.
+This summation-based approach rests on three necessary conditions:
 
+**Constraint without Predetermined Pathways**: The summation operation eliminates dedicated channels for specific features or token relationships.
+
+**Sufficient Representational Capacity**: The summation operation creates a representational bottleneck that forces the optimization process to discover encodings where
+task-relevant information survives aggregation.
+
+**Optimization Pressure as Feedback**: Gradient descent provides the necessary
+feedback that gives representations meaning. 
 
 For further details, see the paper: **"Linear-Time Sequence Modelling with Constraint-Driven Emergence"**
 
