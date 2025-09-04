@@ -88,12 +88,9 @@ function summation(tokens, d_model, pos_bias=1):
 | CMU Book Summaries | Perplexity | 286 | 335 | **269** |
 |                    | Accuracy | 0.18 | 0.17 | **0.19** |
 
-### Multimodal Regression
+### Multi-Modal Regression
 
-| Model | MAE | R² | Speedup |
-|-------|-----|-----|---------|
-| Attention (Concatenation) | 0.0314 | 0.2599 | 1x |
-| Superposition | **0.0289** | **0.3576** | 2 - 15x |
+The summation-based fusion mechanism was evaluated on a multi-modal task using the Civil Comments dataset (text and numerical metadata). This approach achieved competitive performance with standard attention-based fusion while being 2–15x faster and significantly more parameter-efficient. By constraining both modalities to coexist within a shared representational space via summation, the model learns to discover robust, modality-agnostic abstractions, improving generalization. 
 
 ## Requirements
 
