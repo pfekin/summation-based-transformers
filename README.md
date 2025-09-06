@@ -1,4 +1,4 @@
-# Linear-Complexity Sequence Modelling with Constraint-Driven Emergence
+# Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -119,15 +119,15 @@ task-relevant information survives aggregation.
 **Optimization Pressure as Feedback**: Gradient descent provides the necessary
 feedback that gives representations meaning. 
 
-For further details, see the paper: **"Linear-Time Sequence Modelling with Constraint-Driven Emergence"**
+For further details, see the paper: **"Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling"**
 
 ## Citation
 
 If you use this code, algorithms, or ideas from this project in your research, please cite the work:
 
 ```bibtex
-@article{Constraint_Driven_Emergence_2025,
-  title={Linear-Time Sequence Modelling with Constraint-Driven Emergence},
+@article{Summation_Based_Transformers_2025,
+  title={Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling},
   author={Pascal Ekin},
   journal={TechRxiv},  
   year={2025},
