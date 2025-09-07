@@ -12,7 +12,7 @@ from load_datasets import load_wikitext2, load_imdb, load_ag_news, load_cmu_book
 Implementation Note:
 The language modeling implementation uses cumsum() for clarity. 
 This PyTorch function is broken and its performance does not reflect the theoretical O(n) vs O(n²) 
-complexity difference.
+complexity gain.
 """
 
 # Custom collate function to handle variable-length sequences
@@ -52,7 +52,7 @@ class TransformerBlock(nn.Module):
         self.num_heads = num_heads
         self.use_superposition = use_superposition
         
-        # For Representational Superposition, we don't need multiple heads, just use embed_dim
+        # For Summation, we don't need multiple heads, just use embed_dim
         if use_superposition:
             self.head_dim = embed_dim
             self.proj = nn.Sequential(
@@ -82,7 +82,7 @@ class TransformerBlock(nn.Module):
         batch_size, seq_len = q.size(0), q.size(1)
         
         if self.use_superposition:
-            # Pure Addition/Superposition - project then sum token embeddings
+            # Summation - project then sum token embeddings
             projected_embeddings = self.proj(q)
             
             summed_output = torch.cumsum(projected_embeddings, dim=1)
@@ -224,7 +224,7 @@ def validate(model, dataloader, device, pad_token_id):
     
     with torch.no_grad():
         for batch in tqdm(dataloader, desc="Validation"):
-            input_ids = batch['input_ids'].to(device)
+            input_ids = batch["input_ids"].to(device)
             
             targets = input_ids[:, 1:].contiguous()
             inputs = input_ids[:, :-1].contiguous()

@@ -182,7 +182,7 @@ for name, params in attention_types.items():
     )
     
     results[name] = {
-        "val_accuracy": max(history.history['val_accuracy']),
+        "val_accuracy": max(history.history["val_accuracy"]),
         "params": model.count_params()
     }
 

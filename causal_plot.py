@@ -15,13 +15,13 @@ import matplotlib.cm as cm
 Implementation Note:
 The language modeling implementation uses cumsum() for clarity. 
 This PyTorch function is broken and its performance does not reflect the theoretical O(n) vs O(n²) 
-complexity difference.
+complexity gain.
 """
 
 # Custom collate function to handle variable-length sequences
 def collate_fn(batch, pad_token_id=50256):
     # Get the maximum length in the batch
-    max_length = max(len(item['input_ids']) for item in batch)
+    max_length = max(len(item["input_ids"]) for item in batch)
     
     # Pad all sequences to max_length
     input_ids = []
@@ -30,14 +30,14 @@ def collate_fn(batch, pad_token_id=50256):
     for item in batch:
         # Pad input_ids
         padded_input = torch.cat([
-            item['input_ids'], 
+            item["input_ids"], 
             torch.full((max_length - len(item["input_ids"]),), pad_token_id, dtype=torch.long)
         ])
         input_ids.append(padded_input)
         
         # Pad attention_mask
         padded_mask = torch.cat([
-            item['attention_mask'], 
+            item["attention_mask"], 
             torch.zeros(max_length - len(item["attention_mask"]), dtype=torch.long)
         ])
         attention_masks.append(padded_mask)
@@ -55,7 +55,7 @@ class TransformerBlock(nn.Module):
         self.num_heads = num_heads
         self.use_superposition = use_superposition
         
-        # For Representational Superposition, we don't need multiple heads, just use embed_dim
+        # For Summation, we don't need multiple heads, just use embed_dim
         if use_superposition:
             self.head_dim = embed_dim
             self.proj = nn.Sequential(
@@ -86,7 +86,7 @@ class TransformerBlock(nn.Module):
         batch_size, seq_len = q.size(0), q.size(1)
         
         if self.use_superposition:
-            # Superposition - project then sum token embeddings
+            # Summation - project then sum token embeddings
             projected_embeddings = self.proj(q)
             
             summed_output = torch.cumsum(projected_embeddings, dim=1)
@@ -186,7 +186,7 @@ def train_epoch(model, dataloader, optimizer, device, pad_token_id):
     total = 0
     
     for batch in tqdm(dataloader, desc="Training"):
-        input_ids = batch['input_ids'].to(device)
+        input_ids = batch["input_ids"].to(device)
         
         # Create targets (next token prediction)
         targets = input_ids[:, 1:].contiguous()
@@ -226,7 +226,7 @@ def validate(model, dataloader, device, pad_token_id):
 
     with torch.no_grad():
         for batch in dataloader:
-            input_ids = batch['input_ids'].to(device)
+            input_ids = batch["input_ids"].to(device)
             targets = input_ids[:, 1:].contiguous()
             inputs = input_ids[:, :-1].contiguous()
             mask = (targets != pad_token_id)
