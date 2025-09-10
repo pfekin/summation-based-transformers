@@ -52,7 +52,7 @@ python multimodal.py
 Summation layers restructure embeddings differently from attention: instead of gradual refinement, they show sharper shifts and alternating contraction–expansion of representational dimensionality.  
 
 <div align="center">
-  <img src="assets/pca.png" alt="PCA trajectories of embeddings across layers" width="500"/>
+  <img src="media/pca.png" alt="PCA trajectories of embeddings across layers" width="500"/>
   <p><em>PCA trajectories of embeddings across layers. Summation restructures the manifold before the final attention layer stabilizes it.</em></p>
 </div>
 
