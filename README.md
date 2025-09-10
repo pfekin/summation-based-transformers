@@ -1,29 +1,30 @@
-# Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling
+# Summation-Based Transformers: Toward Linear Complexity Sequence Modeling
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
 
-This repository implements **direct summation**, a linear-complexity alternative to self-attention that achieves competitive performance while dramatically reducing computational complexity from O(n²) to O(n).
+This repository implements **summation-based aggregation**, a simple alternative to self-attention that reduces per-layer complexity from O(n²) to O(n·d).  
+Instead of computing pairwise similarities, tokens are modulated by learned positional encodings, projected through bias-free layers with nonlinearities, and aggregated by **direct summation**.  
 
-Instead of computing pairwise token interactions, direct summation aggregates embeddings that have been modulated by learnable positional encodings and projected through ReLU transformations. This constraint-driven approach forces representations to self-organize without explicit attention mechanisms.
+On its own, summation is competitive in classification and multimodal settings. In autoregressive language modeling, a **hybrid design**—summation in most layers with a single attention layer at the output—matches or slightly exceeds full-attention performance while remaining nearly linear in cost.
 
-## Key Features
+## Key Points
 
-- **Linear complexity**: O(n) scaling vs. O(n²) for attention
-- **Competitive performance** language modeling, across classification, and multimodal regression
-- **Unified architecture** works across different modalities and tasks
-- **Drop-in** replacement for self-attention, requiring no changes to the overall transformer architecture
+- **Near-linear scaling**: O(n·d) vs. O(n²·d) for attention  
+- **Hybrid-friendly**: most layers use summation, a final layer uses attention  
+- **Drop-in compatible**: summation can replace attention inside transformer blocks without altering residuals, norms, or optimizers  
+- **Broad applicability**: tested across classification, language modeling, and multimodal regression  
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/pfekin/representational-superposition
-cd representational-superposition
+git clone https://github.com/pfekin/summation-based-transformers
+cd summation-based-transformers
 pip install -r requirements.txt
 
-# Run language modeling benchmark  
+# Run language modeling benchmark
 python causal.py
 
 # Run classification benchmark
@@ -31,99 +32,41 @@ python classifier.py
 
 # Run multimodal regression benchmark
 python multimodal.py
-```
+````
 
 ### Google Colab
+
 ```python
 !pip install --upgrade datasets fsspec huggingface_hub
-!pip install git+https://github.com/pfekin/representational-superposition
+!pip install git+https://github.com/pfekin/summation-based-transformers
 ```
 
-## Algorithm 
+## Experimental Highlights
 
-### Direct Summation
+- **Classification**: With a context window of 512 tokens, summation performs on par with attention while running up to ~18× faster (CPU and GPU).  
+- **Language Modeling**: Pure summation lags behind, but a hybrid design (summation + one attention layer) closes the gap and sometimes outperforms full attention.  
+- **Multimodal Regression**: Summation provides a shared channel across text and metadata, yielding competitive results with fewer parameters and faster training.  
 
-```python
-function summation(tokens, d_model, pos_bias=1):
-    n = length(tokens)
-    
-    # Embed tokens
-    X = embed(tokens)  # [n, d_model]
-    
-    # Learned positional embeddings
-    pos_enc = PositionalEmbedding(n, d_model) + pos_bias
-    X_pos = X * pos_enc  # Element-wise multiplication
-    
-    # Bias-free projection
-    X_proj = relu(X_pos @ W1)  # No bias term
-    
-    # Direct summation O(n)
-    pooled = sum(X_proj, axis=0)  # [n, d_model]
-    
-    return pooled
-```
-**Complexity: O(n·d)**
+## Representation
 
-## Experimental Results
+Summation layers restructure embeddings differently from attention: instead of gradual refinement, they show sharper shifts and alternating contraction–expansion of representational dimensionality.  
 
-### Classification Tasks
-
-| Dataset | Attention Val Acc | Superposition Val Acc | Speedup |
-|---------|-------------------|------------------------|---------|
-| IMDB | 0.87 | **0.88** | 6 - 18× |
-| 20 Newsgroups | 0.58 | **0.65** | 6 - 18× |
-| AG News | **0.91** | **0.91** | 6 - 18× |
-| Reuters-21578 | 0.77 | **0.81** | 6 - 18× |
-
-### Language Modeling Tasks
-
-| Dataset | Validation Metric | Attention | Superposition | Hybrid |
-|---------| ---------------------- |----------------------------|----------------------------|----------------------------|
-| IMDB | Perplexity | 150 | 198 | **145** |
-|      | Accuracy | 0.22 | 0.18 | **0.22** |
-| AG News | Perplexity | **64** | 79 | 66 |
-|         | Accuracy | **0.34** | 0.32 | **0.34** |
-| WikiText-2 | Perplexity | 300 | 331 | **274** |
-|            | Accuracy | 0.22 | 0.21 | **0.23** |
-| CMU Book Summaries | Perplexity | 286 | 335 | **269** |
-|                    | Accuracy | 0.18 | 0.17 | **0.19** |
-
-### Multi-Modal Regression
-
-The summation-based fusion mechanism was evaluated on a multi-modal task using the Civil Comments dataset (text and numerical metadata). This approach achieved competitive performance with standard attention-based fusion while being 2–15x faster and significantly more parameter-efficient. By constraining both modalities to coexist within a shared representational space via summation, the model learns to discover robust, modality-agnostic abstractions, improving generalization. 
+<div align="center">
+  <img src="assets/pca.png" alt="PCA trajectories of embeddings across layers" width="500"/>
+  <p><em>PCA trajectories of embeddings across layers. Summation restructures the manifold before the final attention layer stabilizes it.</em></p>
+</div>
 
 ## Requirements
 
-- Python 3.8+
-- PyTorch 1.9+ and/or tensorflow[and-cuda]
-- transformers
-- scikit-learn
-- numpy
-- matplotlib
-- datasets
-- fsspec
-- huggingface_hub
+* Python 3.8+
+* PyTorch 1.9+ (or TensorFlow with CUDA support)
+* transformers, scikit-learn, numpy, matplotlib, datasets, fsspec, huggingface\_hub
 
-## Theoretical Foundation
+## Reference
 
-Constraint-driven emergence is grounded in principles of functional self-organization, where structure
-and function co-emerge from system dynamics rather than predetermined design.
-
-This summation-based approach rests on three necessary conditions:
-
-**Constraint without Predetermined Pathways**: The summation operation eliminates dedicated channels for specific features or token relationships.
-
-**Sufficient Representational Capacity**: The summation operation creates a representational bottleneck that forces the optimization process to discover encodings where
-task-relevant information survives aggregation.
-
-**Optimization Pressure as Feedback**: Gradient descent provides the necessary
-feedback that gives representations meaning. 
-
-For further details, see the paper: **"Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling"**
-
-## Citation
-
-If you use this code, algorithms, or ideas from this project in your research, please cite the work:
+For details, see:
+**Pascal Ekin, "Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling," TechRxiv, 2025.**
+[📄 Download Paper](https://doi.org/10.36227/techrxiv.12345678)
 
 ```bibtex
 @article{Summation_Based_Transformers_2025,
@@ -138,13 +81,10 @@ If you use this code, algorithms, or ideas from this project in your research, p
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-**Note**: Under the MIT License, you retain copyright ownership while allowing others to use, modify, and distribute your code with proper attribution.
+MIT License — see the [LICENSE](LICENSE) file.
 
 ## Contact
 
-- **Author**: Pascal Ekin
-- **Email**: pfekin@gmail.com 
-- **Paper:** [Download from TechRxiv](https://doi.org/10.36227/techrxiv.12345678)  
-- **Issues**: Please use the GitHub issue tracker for bug reports and feature requests
+* **Author**: Pascal Ekin
+* **Email**: [pfekin@gmail.com](mailto:pfekin@gmail.com)
+* **Issues**: Use the GitHub issue tracker for bugs/requests
