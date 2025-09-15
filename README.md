@@ -66,7 +66,7 @@ Summation layers restructure embeddings differently from attention: instead of g
 
 For details, see:
 **Pascal Ekin, "Summation-Based Transformers: A Path Toward Linear Complexity Sequence Modeling," TechRxiv, 2025.**
-[📄 Download Paper](https://doi.org/10.36227/techrxiv.12345678)
+[📄 Download Paper](10.36227/techrxiv.175790522.25734653/v1)
 
 ```bibtex
 @article{Summation_Based_Transformers_2025,
@@ -74,8 +74,8 @@ For details, see:
   author={Pascal Ekin},
   journal={TechRxiv},  
   year={2025},
-  doi={10.36227/techrxiv.12345678},  
-  url={https://doi.org/10.36227/techrxiv.12345678},
+  doi={10.36227/techrxiv.175790522.25734653/v1},  
+  url={https://doi.org/10.36227/techrxiv.175790522.25734653/v1},
 }
 ```
 
