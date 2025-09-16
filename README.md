@@ -5,7 +5,7 @@
 
 ## Overview
 
-This repository implements **summation-based aggregation**, a simple alternative to self-attention that reduces per-layer complexity from O(n²·d) to O(n·d).  
+This repository implements **summation-based aggregation**, a simple alternative to self-attention that reduces per-layer complexity from O(n²d) to O(nd).  
 Instead of computing pairwise similarities, tokens are modulated by learned positional encodings, projected through bias-free layers with nonlinearities, and aggregated by **direct summation**.  
 
 On its own, summation is competitive in classification and multimodal settings. In autoregressive language modeling, a **hybrid design**—summation in most layers with a single attention layer at the output—matches or slightly exceeds full-attention performance while remaining nearly linear in cost.
