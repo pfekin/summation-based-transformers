@@ -12,7 +12,7 @@ On its own, summation is competitive in classification and multimodal settings. 
 
 ## Key Points
 
-- **Near-linear scaling**: O(n·d) vs. O(n²·d) for attention  
+- **Near-linear scaling**: O(nd) vs. O(n²d) for attention  
 - **Hybrid-friendly**: most layers use summation, a final layer uses attention  
 - **Drop-in compatible**: summation can replace attention inside transformer blocks without altering residuals, norms, or optimizers  
 - **Broad applicability**: tested across classification, language modeling, and multimodal regression  
