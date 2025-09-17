@@ -1,6 +1,6 @@
 # Summation-Based Transformers: Toward Linear Complexity Sequence Modeling
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
@@ -79,9 +79,16 @@ For details, see:
 }
 ```
 
+## License and Patents
+
+This code is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+
+**Patent Notice:** The methods and techniques described in this repository may be subject to pending patent applications. Commercial use of the underlying algorithms may require separate licensing agreements. For licensing inquiries, please contact pfekin@gmail.com.
+
+
 ## License
 
-MIT License — see the [LICENSE](LICENSE) file.
+Apache 2 License — see the [LICENSE](LICENSE) file.
 
 ## Contact
 
