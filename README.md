@@ -79,13 +79,6 @@ For details, see:
 }
 ```
 
-## License and Patents
-
-This code is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
-
-**Patent Notice:** The methods and techniques described in this repository may be subject to pending patent applications. Commercial use of the underlying algorithms may require separate licensing agreements. For licensing inquiries, please contact pfekin@gmail.com.
-
-
 ## License
 
 Apache 2 License — see the [LICENSE](LICENSE) file.
