@@ -81,7 +81,7 @@ For details, see:
 
 ## License
 
-Apache 2 License — see the [LICENSE](LICENSE) file.
+Apache 2.0 License — see the [LICENSE](LICENSE) file.
 
 ## Contact
 
