@@ -8,7 +8,7 @@
 This repository implements **summation-based aggregation**, a simple alternative to self-attention that reduces per-layer complexity from O(n²d) to O(nd).  
 Instead of computing pairwise similarities, tokens are modulated by learned positional encodings, projected through bias-free layers with nonlinearities, and aggregated by **direct summation**.  
 
-On its own, summation is competitive in classification and multimodal settings. In autoregressive language modeling, a **hybrid design**—summation in most layers with a single attention layer at the output—matches or slightly exceeds full-attention performance while remaining nearly linear in cost.
+On its own, summation is competitive in classification and multimodal settings. In autoregressive language modeling, a **hybrid design**—summation in most layers with a single attention layer at the output—matches or exceeds full-attention performance while remaining nearly linear in cost.
 
 ## Key Points
 
@@ -25,13 +25,9 @@ cd summation-based-transformers
 pip install -r requirements.txt
 
 # Run language modeling benchmark
-python causal.py
-
-# Run classification benchmark
-python classifier.py
-
-# Run multimodal regression benchmark
-python multimodal.py
+python causal.py   # to reproduce benchmark
+# Or
+python causal_plot.py   # for PCA plot 
 ````
 
 ### Google Colab
@@ -44,7 +40,7 @@ python multimodal.py
 ## Experimental Highlights
 
 - **Classification**: With a context window of 512 tokens, summation performs on par with attention while running up to ~18× faster (CPU and GPU).  
-- **Language Modeling**: Pure summation lags behind, but a hybrid design (summation + one attention layer) closes the gap and sometimes outperforms full attention.  
+- **Language Modeling**: Pure summation lags behind, but a hybrid design (summation + one attention layer) closes the gap and can outperform full attention.  
 - **Multimodal Regression**: Summation provides a shared channel across text and metadata, yielding competitive results with fewer parameters and faster training.  
 
 ## Representation
