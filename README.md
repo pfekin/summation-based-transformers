@@ -49,7 +49,7 @@ Summation layers restructure embeddings differently from attention: instead of g
 
 <div align="center">
   <img src="media/pca.png" alt="PCA trajectories of embeddings across layers" width="800"/>
-  <p><em>PCA trajectories of embeddings across layers. Summation restructures the manifold before the final attention layer stabilizes it.</em></p>
+  <p><em>PCA trajectories of embeddings across layers. Summation restructures the embeddings before they converge in the final layer.</em></p>
 </div>
 
 ## Requirements
