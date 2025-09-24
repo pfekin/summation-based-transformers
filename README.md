@@ -25,9 +25,9 @@ cd summation-based-transformers
 pip install -r requirements.txt
 
 # Run language modeling benchmark
-python causal.py   # to reproduce benchmark
+python causal.py   # To reproduce the paper's benchmark resuts
 # Or
-python causal_plot.py   # for PCA plot 
+python causal_plot.py   # For PCA plot 
 ````
 
 ### Google Colab
