@@ -13,6 +13,7 @@ numpy
 matplotlib
 tqdm
 scikit-learn
+darts
 
 # Hugging Face
 transformers
@@ -20,3 +21,4 @@ datasets
 
 # TensorFlow Extras
 tensorflow-datasets
+
