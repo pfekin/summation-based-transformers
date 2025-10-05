@@ -33,7 +33,7 @@ python causal_plot.py     # For PCA plot
 ### Google Colab
 
 ```python
-!pip install --upgrade datasets fsspec huggingface_hub
+!pip install --upgrade datasets fsspec huggingface_hub darts
 !pip install git+https://github.com/pfekin/summation-based-transformers
 ```
 
