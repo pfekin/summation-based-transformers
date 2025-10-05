@@ -56,7 +56,7 @@ Summation layers restructure embeddings differently from attention: instead of g
 
 * Python 3.8+
 * PyTorch 1.9+ (or TensorFlow with CUDA support)
-* transformers, scikit-learn, numpy, matplotlib, datasets, fsspec, huggingface\_hub
+* transformers, scikit-learn, numpy, matplotlib, datasets, fsspec, huggingface\_hub, darts
 
 ## Reference
 
