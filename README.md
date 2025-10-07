@@ -107,7 +107,7 @@ One way to understand the hybrid's effectiveness: attention can be viewed as a k
 
 The hybrid architecture suggests that using simpler restructuring mechanisms, driven by attention, provides more representational flexibility. Rather than stacking multiple kernel-based operations that each compute weighted aggregations based on similarity, the hybrid lets summation build structure through constraint while reserving attention's similarity-based disambiguation for where it provides the most value.
 
-This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in informational minimalism - aggregating through the simplest possible operation while maintaining competitive performance.
+This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in computational minimalism - aggregating through the simplest possible operation while maintaining competitive performance.
 
 ## Computational Complexity
 
