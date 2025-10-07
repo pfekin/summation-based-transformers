@@ -44,7 +44,7 @@ The implementation uses **modulated summation** as the primary variant:
 ### 1. Time Series Forecasting (Main Benchmark)
 
 PatchTST-Hybrid architecture tested against **PatchTST** (ICLR 2023, SOTA or near-SOTA).  
-3-layer model (2 summation + 1 attention) comparing full attention with hybrid  (hidden=128, context=512, pred_len=96, patch_len=16, stride=8). 
+3-layer model (hidden=128, context=512, pred_len=96, patch_len=16, stride=8) comparing full attention with hybrid (2 summation + 1 attention). 
 | Dataset | PatchTST MSE | PatchTST Hybrid MSE | Improvement | Speedup |
 |---------|--------------|------------|-------------|---------|
 | Weather   | 0.1607        | **0.1548**      | +3.67%       | x1.45    |
