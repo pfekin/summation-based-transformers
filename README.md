@@ -103,11 +103,11 @@ Further empirical work is needed to identify optimal patterns for different use 
 
 ## Why Hybrids Work: A Kernel Perspective
 
-One way to understand the hybrid's effectiveness: attention can be viewed as a kernel method that computes similarity through dot products in feature space. Summation, by contrast, eliminates pairwise comparison entirely - it's not approximating a kernel but operating through a fundamentally different mechanism.
+Attention can be viewed as a kernel method that computes similarity through dot products in feature space. Summation, by contrast, eliminates pairwise comparison entirely - it's not approximating a kernel but operating through a fundamentally different mechanism.
 
-The hybrid architecture suggests that using simpler restructuring mechanisms, driven by attention, provides more representational flexibility. Rather than stacking multiple kernel-based operations that each compute weighted aggregations based on similarity, the hybrid lets summation build structure through constraint while reserving attention's similarity-based disambiguation for where it provides the most value.
+The hybrid architecture suggests that using simpler restructuring mechanisms, driven by attention, provides more representational flexibility. Rather than stacking multiple kernel-based operations that each compute weighted aggregations based on similarity, summation builds structure through constraint while attention provides precise disambiguation at the output.
 
-This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in computational minimalism - aggregating through the simplest possible operation while maintaining competitive performance.
+This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in computational minimalism - aggregating through the simplest possible operation whilst maintaining competitive performance.
 
 ## Computational Complexity
 
