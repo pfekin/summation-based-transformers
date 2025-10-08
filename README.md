@@ -41,10 +41,12 @@ The implementation uses **modulated summation** as the primary variant:
 
 ## Results
 
-### 1. Time Series Forecasting (Main Benchmark)
+### 1. Time Series Forecasting [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pfekin/summation-based-transformers/blob/main/patch_tst_all.ipynb)
+
 
 PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-SOTA)](https://github.com/yuqinie98/PatchTST).  
 3-layer model (hidden=128, context=512, pred_len=96, patch_len=16, stride=8) comparing full attention with hybrid (2 summation + 1 attention). 
+
 | Dataset | PatchTST MSE | PatchTST Hybrid MSE | Improvement | Speedup |
 |---------|--------------|------------|-------------|---------|
 | Weather   | 0.1607        | **0.1548**      | +3.67%       | x1.45    |
@@ -53,8 +55,6 @@ PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-S
 | ETTh2   | 0.2438        | **0.1941**      | +20.39%       | x1.37    |
 | ETTm1   | 0.3704        | **0.3295**      | +11.04%       | x1.34   |
 | ETTm2   | 0.1850        | **0.1751**      | +5.35.%       | x1.44    |  
-
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pfekin/summation-based-transformers/blob/main/patch_tst_all.ipynb)
 
 ### 2. Autoregressive Language Modeling
 
@@ -162,6 +162,7 @@ summation-based-transformers/
 - Email: pfekin@gmail.com
 - Issues: Use the GitHub issue tracker for bugs and technical questions
 - Collaboration inquiries welcome
+
 
 
 
