@@ -107,7 +107,7 @@ Attention can be viewed as a kernel method that computes similarity through dot 
 
 The hybrid architecture suggests that using simpler restructuring mechanisms, driven by attention, provides more representational flexibility. Rather than stacking multiple kernel-based operations that each compute weighted aggregations based on similarity, summation builds structure through constraint while attention provides precise disambiguation at the output.
 
-This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in computational minimalism - aggregating through the simplest possible operation whilst maintaining competitive performance.
+This framing positions hybrid architectures as exploring a broader principle: quadratic attention driving linear mechanisms. Summation becomes an exercise in computational minimalism - aggregating through the simplest possible operation while maintaining competitive performance.
 
 ## Computational Complexity
 
