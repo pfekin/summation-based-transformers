@@ -150,6 +150,7 @@ The paper explores broader interpretive frameworks in Section 7.3 for readers in
 ```
 summation-based-transformers/
 ├── patch_tst_all.py       # Time series forecasting benchmarks
+├── patch_tst_all.ipynb    # Time series forecasting benchmarks (executes on Colab)
 ├── causal.py              # Language modeling experiments
 ├── classification.py      # Document classification
 └── multimodal.py          # Multimodal regression
@@ -160,6 +161,7 @@ summation-based-transformers/
 - Email: pfekin@gmail.com
 - Issues: Use the GitHub issue tracker for bugs and technical questions
 - Collaboration inquiries welcome
+
 
 
 
