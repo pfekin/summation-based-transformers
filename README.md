@@ -55,8 +55,6 @@ PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-S
 | ETTm2   | 0.1850        | **0.1751**      | +5.35.%       | x1.44    |
 
 
-**Key result:** Hybrid summation-attention architecture achieves competitive or superior performance compared to current SOTA while being significantly faster.
-
 ### 2. Autoregressive Language Modeling
 
 4-layer decoder models (hidden=512, context=512) comparing full attention, pure summation, and hybrid (3 summation + 1 attention):
@@ -67,8 +65,6 @@ PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-S
 | WikiText-2 | 300 / 0.22 | 331 / 0.21 | **274 / 0.23** |
 | AG News | **64 / 0.35** | 79 / 0.32 | 66 / 0.35 |
 | IMDB | 150 / 0.22 | 198 / 0.19 | **145 / 0.22** |
-
-**Tested at 512 context length.** Scaling behavior at 32K+ tokens remains an open question.
 
 ### 3. Document Classification
 
@@ -164,4 +160,5 @@ summation-based-transformers/
 - Email: pfekin@gmail.com
 - Issues: Use the GitHub issue tracker for bugs and technical questions
 - Collaboration inquiries welcome
+
 
