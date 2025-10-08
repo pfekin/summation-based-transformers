@@ -53,7 +53,7 @@ PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-S
 | ETTh2   | 0.2438        | **0.1941**      | +20.39%       | x1.37    |
 | ETTm1   | 0.3704        | **0.3295**      | +11.04%       | x1.34   |
 | ETTm2   | 0.1850        | **0.1751**      | +5.35.%       | x1.44    |
-
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pfekin/summation-based-transformers/blob/main/patch_tst_all.ipynb)
 
 ### 2. Autoregressive Language Modeling
 
@@ -161,6 +161,7 @@ summation-based-transformers/
 - Email: pfekin@gmail.com
 - Issues: Use the GitHub issue tracker for bugs and technical questions
 - Collaboration inquiries welcome
+
 
 
 
