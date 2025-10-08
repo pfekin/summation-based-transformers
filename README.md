@@ -41,8 +41,7 @@ The implementation uses **modulated summation** as the primary variant:
 
 ## Results
 
-### 1. Time Series Forecasting [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pfekin/summation-based-transformers/blob/main/patch_tst_all.ipynb)
-
+### 1. Time Series Forecasting
 
 PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-SOTA)](https://github.com/yuqinie98/PatchTST).  
 3-layer model (hidden=128, context=512, pred_len=96, patch_len=16, stride=8) comparing full attention with hybrid (2 summation + 1 attention). 
@@ -56,6 +55,7 @@ PatchTST-Hybrid architecture tested against [PatchTST (ICLR 2023, SOTA or near-S
 | ETTm1   | 0.3704        | **0.3295**      | +11.04%       | x1.34   |
 | ETTm2   | 0.1850        | **0.1751**      | +5.35.%       | x1.44    |  
 
+ [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pfekin/summation-based-transformers/blob/main/patch_tst_all.ipynb)
 ### 2. Autoregressive Language Modeling
 
 4-layer decoder models (hidden=512, context=512) comparing full attention, pure summation, and hybrid (3 summation + 1 attention):
