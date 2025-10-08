@@ -37,7 +37,7 @@ The implementation uses **modulated summation** as the primary variant:
 - **Activation:** GELU or ReLU
 - **Works for:** Forecasting, language modeling
 
-**Note:** While modulated summation works well across most tested domains, other configurations may be better suited for specific tasks. Variants using additive positional encodings, linear projections with bias, or no nonlinearity could provide better fits for noisy or sparse-signal data. The design space remains open for exploration.
+**Note:** While modulated summation works well across most tested domains, other configurations may be better suited for specific tasks. Variants using additive positional encodings, linear projections with bias, or no nonlinearity could provide better fits for noisy or sparse-signal data.
 
 ## Results
 
@@ -160,5 +160,6 @@ summation-based-transformers/
 - Email: pfekin@gmail.com
 - Issues: Use the GitHub issue tracker for bugs and technical questions
 - Collaboration inquiries welcome
+
 
 
