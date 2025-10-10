@@ -37,7 +37,7 @@ python multimodal.py
 ### Google Colab
 
 ```python
-!pip install --upgrade datasets fsspec huggingface_hub datasets
+!pip install --upgrade datasets fsspec huggingface_hub
 !pip install git+https://github.com/pfekin/summation-based-transformers
 ```
 
@@ -88,6 +88,7 @@ MIT License — see the [LICENSE](LICENSE) file.
 * **Author**: Pascal Ekin
 * **Email**: [pfekin@gmail.com](mailto:pfekin@gmail.com)
 * **Issues**: Use the GitHub issue tracker for bugs/requests
+
 
 
 
