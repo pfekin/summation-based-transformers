@@ -74,7 +74,7 @@ For details, see:
   author={Pascal Ekin},
   journal={TechRxiv},  
   year={2025},
-  doi={10.36227/techrxiv.175790522.25734653/v1},  
+  doi={10.36227/techrxiv.175790522.25734653/v2},  
   url={https://doi.org/10.36227/techrxiv.175790522.25734653/v2},
 }
 ```
@@ -88,6 +88,7 @@ MIT License — see the [LICENSE](LICENSE) file.
 * **Author**: Pascal Ekin
 * **Email**: [pfekin@gmail.com](mailto:pfekin@gmail.com)
 * **Issues**: Use the GitHub issue tracker for bugs/requests
+
 
 
 
