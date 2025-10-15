@@ -1,6 +1,6 @@
 # Summation-Based Transformers: Toward Linear Complexity Sequence Modeling
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 ## Overview
@@ -79,15 +79,12 @@ For details, see:
 }
 ```
 
-## License
-
-MIT License — see the [LICENSE](LICENSE) file.
-
 ## Contact
 
 * **Author**: Pascal Ekin
 * **Email**: [pfekin@gmail.com](mailto:pfekin@gmail.com)
 * **Issues**: Use the GitHub issue tracker for bugs/requests
+
 
 
 
