@@ -293,7 +293,7 @@ def main():
     train_subset_size = min(5000, len(train_dataset))  # Use 5000 samples or full dataset if smaller
     val_subset_size = min(1000, len(val_dataset))
     #train_subset_size = len(train_dataset) # uncomment this line and next one (and comment 2 lines above) for full dataset  
-    #val_subset_size = en(val_dataset)
+    #val_subset_size = len(val_dataset)
     
     train_subset = torch.utils.data.Subset(train_dataset, range(train_subset_size))
     val_subset = torch.utils.data.Subset(val_dataset, range(val_subset_size))
@@ -359,4 +359,5 @@ def main():
         print()
 
 if __name__ == "__main__":
+
     main()
