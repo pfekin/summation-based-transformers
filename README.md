@@ -38,6 +38,7 @@ python multimodal.py
 
 ```python
 !pip install --upgrade datasets fsspec huggingface_hub
+!pip install transformers -U
 !pip install git+https://github.com/pfekin/summation-based-transformers
 ```
 
@@ -84,6 +85,7 @@ For details, see:
 * **Author**: Pascal Ekin
 * **Email**: [pfekin@gmail.com](mailto:pfekin@gmail.com)
 * **Issues**: Use the GitHub issue tracker for bugs/requests
+
 
 
 
