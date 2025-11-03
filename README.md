@@ -1,3 +1,13 @@
+
+## ⚠️ _Update: Attention-Driven Transformers_
+
+_**A more general architecture has been developed in follow-up work.**_
+
+_The attention-driven transformer (ADT) architecture removes the explicit summation mechanism while retaining projection layers and sparse attention. This simpler formulation achieves state-of-the-art results on time-series forecasting benchmarks with reduced computational overhead._
+
+_**New repository:** [attention-driven-transformers](https://github.com/pfekin/attention-driven-transformers)_
+_For new projects, we recommend exploring ADT as a simpler starting point. This repository remains available for reference and reproducibility of the original summation-based experiments._
+
 # Summation-Based Transformers: Toward Linear Complexity Sequence Modeling
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
